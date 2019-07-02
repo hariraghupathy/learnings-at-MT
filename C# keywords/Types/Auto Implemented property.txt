@@ -1,0 +1,21 @@
+Auto implemented Properties:
+
+Public string Name{get;set}
+
+->backing field won't be specified and the compiler will itself implement by internally creating a private field
+
+Normal implemented property:
+
+     public  int EmployeeID
+        {
+            get
+            {
+                return _iEmpID;
+            }
+            set
+            {
+                _iEmpID = value;
+            }
+        }
+
+->we create the backing field

@@ -1,0 +1,28 @@
+  class UnsafeMethod
+    {
+        public unsafe static void Display()
+        {
+            int a = 10;
+            IntPtr intPtrValue;
+            int* p = &a;
+            intPtrValue = (IntPtr)p;
+            Console.WriteLine(intPtrValue.ToString());
+            Console.ReadLine();
+        }
+    }
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            //int a = 10;
+            //IntPtr intPtrValue;
+            //unsafe
+            //{
+            //    int* p = &a;
+            //    intPtrValue =(IntPtr) p;
+            //    Console.WriteLine(intPtrValue.ToString());
+            //}
+            //Console.ReadLine();
+            UnsafeMethod.Display();
+        }
+    }

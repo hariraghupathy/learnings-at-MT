@@ -1,0 +1,76 @@
+Operator Overloading
+
+namespace Operator_Overloading
+{
+    class Box
+    {
+        private double length;  //length of box
+        private double breadth; //breadth of box
+        private double height; //height of box
+
+        public double getVolume()
+        {
+            return length * breadth * height;
+        }
+
+        public void setLength(double dbLength)
+        {
+            this.length = dbLength;
+        }
+
+        public void setBreadth(double dbBreadth)
+        {
+            this.breadth = dbBreadth;
+        }
+
+        public void setHeight(double dbHeight)
+        {
+            this.height = dbHeight;
+        }
+
+        //overload + operator to add two Box objects
+        public static Box operator + (Box b,Box c)
+        {
+            Box box = new Box();
+            box.length = b.length + c.length;
+            box.breadth = b.breadth + c.breadth;
+            box.height = b.height + c.height;
+            return box;
+        }
+
+    }
+    class Program
+    {                 
+        static void Main(string[] args)
+        {
+            Box Box1 = new Box();  //declare box1 of type box
+            Box Box2 = new Box();  //declare box2 of type box
+            Box Box3 = new Box();  //declare box3 of type box
+            double dbVolume = 0.0;  //to store the volume of a box here
+
+            //Box1 specification
+            Box1.setLength(1.0);
+            Box1.setBreadth(2.0);
+            Box1.setHeight(3.0);
+
+            //Box2 specification
+            Box2.setLength(4.0);
+            Box2.setBreadth(5.0);
+            Box2.setHeight(6.0);
+
+            dbVolume = Box1.getVolume();
+            Console.WriteLine("Volume of BOX1=" + dbVolume.ToString());
+
+            dbVolume = Box2.getVolume();
+            Console.WriteLine("Volume of BOX2=" + dbVolume.ToString());
+
+            //now if we want to add two boxes volume, we can use operator overloading
+            //the below line will work only when operator overloading is done
+            Box3 = Box1 + Box2;
+            dbVolume = Box3.getVolume();
+            Console.WriteLine("Volume of BOX3=" + dbVolume.ToString());
+
+            Console.ReadKey();
+        }
+    }
+}

@@ -1,0 +1,48 @@
+DataAdapter:
+
+It is a type of disconnected architecture. Disconnected architecture means, you don’t need to connect always when you want to get data from the database. 
+You can get data from dataset; basically DataSet is a collection of datatables. 
+We can store the database table, view data in the DataSet and can also store the xml value in dataset and get it if required. 
+To achieve this you need to use DataAdapter which work as a mediator between Database and DataSet.
+
+Example
+
+public DataSet GetEmployeeData()  
+{  
+    SqlConnection conString = new SqlConnection("myconnection");  
+    conString.Open();  
+    SqlCommand cmdQuery = new SqlCommand("Select * from Employee", conString);  
+    SqlDataAdapter sda = new SqlDataAdapter(cmdQuery);  
+    DataSet dsData = new DataSet();  
+    sda.Fill(dsData);  
+    return dsData;  
+} 
+
+
+DataReader
+
+It is a connected architecture, which means when you require  data from the database you need to connect with database and fetch the data from there. You can use if you need updated data from the database in a faster manner. DataReader is Read/Forward only that means we can only get the data using this but we cannot update or insert the data into the database. It fetches the record one by one.
+
+Example
+
+static void HasRows(SqlConnection connection)  
+{  
+    using (connection)  
+    {  
+        SqlCommand command = new SqlCommand("SELECT CategoryID, CategoryName FROM Categories;",connection);  
+        connection.Open();  
+        SqlDataReader reader = command.ExecuteReader();  
+        if (reader.HasRows)  
+        {  
+            while (reader.Read())  
+            {  
+                Console.WriteLine("{0}\t{1}", reader.GetInt32(0),reader.GetString(1));  
+            }  
+        }  
+        else  
+        {  
+            Console.WriteLine("No rows found.");  
+        }  
+        reader.Close();  
+    }  
+}  

@@ -1,0 +1,3 @@
+Composition:
+  ->It is a restricted form of aggregation where the two entities are highly dependent on each other
+  ->

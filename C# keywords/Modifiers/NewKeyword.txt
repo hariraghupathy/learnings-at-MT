@@ -1,0 +1,49 @@
+new :
+1.Operator
+2.Modifier
+3.Constraint
+
+1.new Operator:
+   ->used to create objects and invoke constructors
+   Example: 
+       ->class1 obj=new Class1();
+
+   ->It is also used to create instances of anonymous types
+   Example:
+      ->var query=from cust in customers 
+                  select new { Name=cust.Name , Address=cust.PrimaryAddress }
+
+   ->It is also used to invoke the default constructor for value types
+   Example:
+       int i = new int();
+
+2.new Modifier:
+    ->The new modifier hides explicitly hides a member that is inherited from a base class
+    ->When we hide an inherited member , the derived version of the member replaces the original base class version
+    ->although we can hide a member without using a new keyword,but we will get a compiler warning 
+    -> public class BaseClass
+    {
+        public class NestedClass
+        {
+            public int x = 200;
+            public int y;
+        }
+    }
+
+    public class DerivedClass : BaseClass
+    {
+        new public class NestedClass
+        {
+            public int x = 100;
+            public int y;
+            public int z;
+        }
+        static void Main(string[] args)
+        {
+            NestedClass c1 = new NestedClass();
+            Console.WriteLine(c1.x);
+            BaseClass.NestedClass c2 = new BaseClass.NestedClass();
+            Console.WriteLine(c2.x);
+            Console.ReadKey();
+        }
+    }

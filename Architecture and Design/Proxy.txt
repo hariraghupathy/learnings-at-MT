@@ -1,0 +1,119 @@
+Proxy Design Pattern:
+   ->It allows us to provide an interface to other objects by creating a wrapper class as the proxy
+   ->The wrapper class which is the proxy can add additional functionality to the object of interest without disturbing the object's code
+   ->Real Time Example:
+      ->Suppose we have a complex API at our end(server side)
+      ->which the client is finding it difficult to access the api because of its complexity
+      ->So what we do is create a wrapper class which contains the api similar to that of the original API and minimize the complexity in the wrapper by adding additional functionalities 
+      ->This is called a Proxy
+   ->Code implementation:
+        ->suppose we have a Calculator Class which has all the mathematical operations
+        ->The main calculator class will be handled by some other person,only thing is we need to access that class
+       
+
+/// <summary>
+    /// This is the main subject class which is created by some other person which we need to access 
+    /// in our project
+    /// </summary>
+    public class ForexProvider
+    {
+        private bool isAutheticated;
+        public string Request()
+        {
+            return "Request completed";
+        }
+ 
+        public string GetPrice(string currencyName)
+        {
+            return string.Format("The forex rate is {0} for {1}", 23, currencyName);
+        }
+ 
+        public string SetPrice(string currencyName, int value)
+        {
+            if (isAutheticated)
+                return string.Format("The forex rate of {0} is set to {1}", currencyName, value);
+            else
+                return string.Format("Please autheticate yourself");
+        }
+ 
+        public bool Authenticate(string pwd)
+        {
+            if (pwd == "pwd")
+            {
+                isAutheticated = true;
+                return true;
+            }
+            else
+                return false;
+        }
+    }
+ 
+    /// <summary>
+    /// This is the subject interface which contains the same method which we need our client to access the 
+    /// main subject class
+    /// </summary>
+    public interface IForexProvider
+    {
+        string Request();
+        string GetPrice(string currencyName);
+        string SetPrice(string currencyName, int value);
+        bool Authenticate(string pwd);
+    }
+ 
+    /// <summary>
+    /// This is the proxy class which creates and instance of the main suject class and takes care of
+    /// the internal working of the main subject.
+    /// </summary>
+    public class ForexProviderProxy : IForexProvider
+    {
+        private ForexProvider forexProvider;
+ 
+        public bool Authenticate(string pwd)
+        {
+            if(forexProvider == null)
+                forexProvider = new ForexProvider();
+            return forexProvider.Authenticate(pwd);
+        }
+ 
+        public string GetPrice(string currencyName)
+        {
+            if (forexProvider == null)
+                forexProvider = new ForexProvider();
+            return forexProvider.GetPrice(currencyName);
+        }
+ 
+        public string Request()
+        {
+            if(forexProvider  == null)
+                forexProvider = new ForexProvider();
+            return forexProvider.Request();
+        }
+ 
+        public string SetPrice(string currencyName, int value)
+        {
+            if (forexProvider == null)
+                forexProvider = new ForexProvider();
+            return forexProvider.SetPrice(currencyName, value);
+        }
+    }
+ 
+  /// <summary>
+    /// This is the client which does not know any thing abou the main subject and it only deals with 
+    /// the proxy class
+    /// </summary>
+    class Client
+    {
+        static void Main(string[] args)
+        {
+            IForexProvider forex = new ForexProviderProxy();
+            forex.Request();
+            forex.SetPrice("Indian Rupee", 65);
+ 
+            Console.Read();
+        }
+    }
+
+
+->so we create object of proxy class in the main method and that method will call the original class methods from there 
+->so the api is not hit directly 
+->it is hit by a wrapper which is intermediate .The wrapper is the proxy by means of which we call the original method

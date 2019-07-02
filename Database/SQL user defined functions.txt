@@ -1,0 +1,15 @@
+SQL user defined functions:
+->It cannot be used to perform actions that modifies the database state
+->User-defined functions can not return multiple result sets. Use a stored procedure if you need to return multiple result sets
+->Error handling is restricted in a user-defined function. A UDF does not support TRY...CATCH, @ERROR or RAISERROR. 
+->User-defined functions cannot make use of dynamic SQL or temp tables. Table variables are allowed. 
+->SET statements are not allowed in a user-defined function. 
+->User-defined functions can be nested; that is, one user-defined function can call another
+->Type of user defined functions:
+
+1.Scalar Functions:
+  ->Returns only a single value
+  ->
+
+
+

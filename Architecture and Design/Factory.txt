@@ -1,0 +1,64 @@
+Factory Design Pattern:
+
+When it was used?
+    ->It would be tedious for the client to specify the class name while creating the objects
+    ->So to resolve this problem,we can use Factory Pattern
+    ->It provides the client a simple way to create an object
+
+RealTime Example:
+    ->ComboBox will have fieldtypes
+    ->We have two classes one for numeric and the other for alphanumeric datatypes
+    ->we have to load the classes respectively
+    ->and the person who is going to do extraction is a third person and he doesn't know the class name
+    ->so we define an interface which has methods common to both numeric and alphanumeric
+    ->Conisder the interface has only one method named Display()
+
+     Code:
+     Interface IFactory
+     {
+         void Display(); 
+     }
+
+     class Numeric : IFactory
+     {
+         public void Display(){ Console.WriteLine("Numeric");}  
+     }
+
+     class AlphaNumeric : IFactory
+     {
+         public void Display(){Console.WriteLine("AlphaNumeric");}
+     }
+
+     ->Now we will create the Factory Class:
+     
+     ->the method which creates the object in the factory class should be of type of the interface
+     class clsFactory
+     {
+        public static IFactory CreateObject(char pchChoice)
+        {
+            IFactory objReturn=null;
+            switch(pchChoice)
+            {
+               case 'N':
+                  objReturn=new Numeric();
+                  break;
+               case 'A'
+                  objReturn=new AlphaNumeric();
+                  break;
+               default:
+                  objReturn=new Numeric();
+                  break;
+            }
+            return objReturn;
+        }
+     } 
+
+
+     ->CLIENT CODE:
+       private void cmbSelect_SelectedIndexChanged(object sender, EventArgs e)
+       {
+            IFactory objInterface=null;
+            objInterface=clsFactory.CreateObject(cmbSelect.SelectedIndex + 1);
+            objInterface.Display();
+       }
+->This is Factory design pattern

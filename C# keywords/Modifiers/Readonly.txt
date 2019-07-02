@@ -1,0 +1,27 @@
+->Readonly modifier can be used in three contexts
+1.In field declaration,read only can indicate the assignment to the field that can only occur as a part of the declaration 
+  or a constructor in the same class
+2.In a read-only struct definition,it indicates that the struct is immutable
+3.Ref readonly:
+       ->It indicates that a reference would be returned and that cannot be modified
+
+
+->It can be assigned values only at the place of declaration 
+->and in its class constructor
+
+
+->Difference between Constant and read-only:
+ 
+ ->Constants cannot be reassigned values 
+ ->But read-only members can be assigned values but only at their class constructors
+
+
+When to use which?
+
+1.Constants can be used for compile-time constants
+2.Read-only can be used for run-time constants (Example : DateTime)
+  Example:public static readonly uint timeStamp = (uint)DateTime.Now.Ticks;
+
+
+important:
+structs cannot have parameterless constructors

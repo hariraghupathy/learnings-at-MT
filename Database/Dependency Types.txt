@@ -1,0 +1,86 @@
+1.Functional dependency:
+
+
+->It is a relationship that exists when one attribute uniquely determines another attribute
+   ->attributes are fields preent in a table
+   ->If R is a relation(table) with two attributes(columns) X & Y
+   ->then -> X->Y
+          ->so Y is functionally dependent on X
+          ->and X uniquely determines Y
+  ->It is a set of constraints bw 2 attributes in a relation
+          ->X->Y  where X is DETERMINANT and Y is DEPENDENT
+          ->Determinant means X determines the value of Y
+          ->dependent means Y is dependent on X
+
+
+
+->Sample Table:
+
+  Name  Roll    CGPA
+  A     R1      7.5
+  B	R2	8.0
+  C	R3	9.2
+  A	R4	6.5
+  B	R5	7.2
+
+Example: 
+->In the above relation, if we are asked to find out the CGPA of A, there are two A's which leads to ambiguity
+->we have to have something which will uniquely identify the other attribute
+->Now if we ask what is the CGPA of Roll number R2,then we can determine the CGPA
+->so cgpa can be identified with the help of roll number
+->roll number can also determine A
+->So functional dependencies in the above table are:
+
+{Roll -> Name , Roll -> CGPA}
+
+
+2.Fully functional dependency and Partial functional dependency:
+
+Fully functional dependency:(if subset can determine the dependent)
+
+Example:
+
+-> ABC -> D
+->So D is functionally dependent on ABC , where A,B and C are individual columns
+
+->When D is fully functionally dependent on ABC?
+  ->When no subset of ABC determines D i.e in the below scenarios
+     1.AC does not determine D
+     2.BC does not determine D
+     3.AC does not determine D
+     4.A does not determine D
+     5.B does not determine D
+     6.C does not determine D
+  ->only if the above conditions are satisfied and if all A,B and C combines together can determine D, then D is fully functionally dependent on ABC
+
+3.Partial functional dependency:(if subset cannot determine the dependent)
+
+Example 2:
+   ->Consider the following dependencies:
+   1.AC->P
+   2.A->D
+   3.D->P
+   ->In the above example, P is not fully functionally dependent on AC because:
+   ->the relation A->D->P exists, so without C; P can be determined by A
+   ->So the above functional dependency AC->P does not exist
+   ->but we can say P is partially functionally dependent on AC because without C also we can determine the P from A
+
+
+
+4.Transitive Functional Dependency:
+   ->There is a transitive functional dependency between functional dependency
+   ->Example:
+     1.X->Y
+     2.Y->Z
+     The above two dependencies indicate that X->Z , which implies Z is transitively dependent on X
+
+
+->Learn what is trivial functional dependency
+         
+
+
+
+
+
+
+   

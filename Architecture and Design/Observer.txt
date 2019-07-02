@@ -1,0 +1,2 @@
+Observer Design Pattern:
+  ->Similar to the famous hollywood principle -> Don't call us , we will call you

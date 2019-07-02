@@ -1,0 +1,18 @@
+Design patterns introduction:
+    ->What they are and why they are required
+    ->Example:   
+      ->Consider a scenario of three people in which all the three have to reach the same destination
+      ->They later discovered how extremely expensive plane tickets are and if it was by train they have to change thrice between the entire journey and bus will take 18 hrs which is too long
+      ->So for every problem and solution there are new problems
+      ->So what we need is a strategy which is tested,successful,documented and ready to implement
+      ->so that strategy is design pattern
+
+Design Patterns:
+    ->They are widely accepted,recurring and reusable solutions to the problems occuring again and again in software development
+    ->There are many design patterns and they are applied to a problem based on its context
+    ->It is a design which can be transformed into code
+
+Categories of design patterns:
+   1.Creational (while creation of new objects)->example(Singleton,Factory etc)
+   2.Structural (at some problem,we may need to change the structure of the class->example (Adapter,Proxy))
+   3.Behavioural (solve problems occuring when we try to tamper with the behaviour of the class)

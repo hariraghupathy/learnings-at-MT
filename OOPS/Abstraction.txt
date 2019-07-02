@@ -1,0 +1,93 @@
+Abstraction: (https://www.javatpoint.com/abstract-class-in-java)
+   ->It is the process of hiding the implementation details
+   ->Showing only functionality to the user
+   ->Two ways to achieve abstraction:
+        1.Abstract class (0 to 100%)
+        2.Interface (100%)
+
+1.Abstract Class:
+   ->A class which is defined abstract is known as abstract class
+   ->It can have abstract and non-abstract methods
+   ->It needs to be extended and then its method can be implemented
+   ->An abstract class cannot be instantiated
+   ->Points to remember:
+       1.abstract class must be declared with an abstract keyword
+       2.It can have abstract and non-abstract methods
+       3.It can also have static members and constructors
+       4.It cannnot be instantiated
+       
+2.Abstract methods:
+   ->a method which is declared abstract and does not have implementation is known as an abstract method\
+   ->Example:
+        ->abstract void printStatus()
+          {}
+
+->Example:
+    abstract class Bike
+    {  
+       abstract void run();  
+    }  
+    class Honda4 extends Bike
+    {  
+      void run(){System.out.println("running safely");
+    }  
+    public static void main(String args[])
+    {  
+      Bike obj = new Honda4();  
+      obj.run();  
+    }  
+
+
+->Abstract class with constructor,abstract and non-abstract methods:
+
+Example:
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Abstraction
+{
+    abstract class Shape
+    {
+        public Shape()  //constructor
+        {
+            Console.WriteLine("Shape constructor is called");
+        }
+        public abstract void draw(); //abstract method
+
+        public void drawShape()
+        {
+            Console.WriteLine("Draw a shape");
+        }
+    }
+
+    class Rectangle : Shape
+    {
+        public override void draw()
+        {
+            Console.WriteLine("drawing a rectangle");
+        }
+    }
+
+    class Circle : Shape
+    {
+        public override void draw()
+        {
+            Console.WriteLine("drawing a circle");
+        }
+    }
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Shape obj = new Rectangle();
+            obj.draw();
+            obj.drawShape();
+            Console.ReadKey();
+        }
+    }
+}
+
+   

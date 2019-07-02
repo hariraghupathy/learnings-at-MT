@@ -1,0 +1,20 @@
+CREATE TABLE MYTEST
+(TEST_ID				INT PRIMARY KEY,
+ TEST_DETAILS			VARCHAR(30) NOT NULL);
+ 
+
+
+CREATE TABLE MYDESC
+(DESC_ID				INT PRIMARY KEY,
+ TEST_ID				INT,
+ DESCRIPTION			VARCHAR(30) NOT NULL,
+ CONSTRAINT FK_TST_DESC FOREIGN KEY (TEST_ID)
+ REFERENCES MYTEST (TEST_ID)
+ ON DELETE CASCADE);
+
+
+ON DELETE CASCADE:
+
+   ->When we have to delete a primary key containing row which is referenced to anothertable,
+     we have to use delete cascade while create the forign key reference
+   ->so when the primary key containing row is deleted , it will automatically delete those referenced entries in the foreign key

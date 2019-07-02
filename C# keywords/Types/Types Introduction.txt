@@ -1,0 +1,7 @@
+c# typing system contain the following categories:
+  ->Value Types
+  ->Reference Types
+  ->Pointer Types
+
+Difference between value and reference types:
+  

@@ -1,0 +1,47 @@
+New Constratint:
+
+namespace Modifiers
+{
+  
+ 
+    class ClassOne
+    {
+        public ClassOne()
+        {
+
+        }
+    }
+
+    class ClassTwo:ClassOne
+    {
+        public ClassTwo()
+        {
+
+        }
+    }
+
+    class ClassThree
+    {
+        public ClassThree()
+        {
+
+        }
+    }
+    class MainClass
+    {
+        //write a generic method here with type T as return type
+        public static T ProduceA<T>() where T :ClassOne ,new()   //the classes to be passed should contain a parameterless constrcutor and should inherit classOne
+        {                                                        //otherwise this method can't create the object for that class
+            T returnVal = new T();
+            return returnVal;      
+        }
+        public static void Main(string[] args)
+        {
+            ProduceA<ClassOne>();
+            ProduceA<ClassTwo>();
+            //ProduceA<ClassThree>();//not possible because it does not inherit classOne
+        }
+    }
+ 
+ 
+}

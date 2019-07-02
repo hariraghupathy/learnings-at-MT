@@ -1,0 +1,8 @@
+Difference between Composition and Aggregation:
+ 
+Both comes under association:
+  1.Aggregation:
+      ->This is where one object uses another object
+  2.Composition:
+      ->This is where one object owns another object
+

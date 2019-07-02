@@ -1,0 +1,16 @@
+Docker for Developers:
+
+->Building and deploying new applications is faster with containers
+->Docker containers wraps up software and its dependencies into a standardized unit 
+->This unit includes everything it needs to run: code,runtime,system tools and libraries
+
+Advantages:
+
+->Onboard faster and stop wasting hours trying to set up development environments
+->spin up new instances and make copies of production code to run locally
+->Polygot Programming:
+ ->It is the practice of writing code in multiple languages to capture additional functionality and efficiency
+   not available in a single language
+->So docker helps to enable polygot development and use any language,stack or tools without worry of application conflicts
+->it alleviates concern over application security
+

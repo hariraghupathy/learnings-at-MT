@@ -1,0 +1,139 @@
+Inheritance:
+  ->process in which we define parent classes and child classes
+  ->the child classes inherit the methods and properties of the parent class
+  ->but at the same time they can also modify the properties of the parent class if needed
+
+->Instantiation:
+  ->Object for the most derived class will be created
+  ->constrcutor will be called from the baseclass 
+  
+
+Types of inheritance:
+ 
+1.Hierarchical:
+  
+  ->class Shape  //base class
+    {
+        protected int iWidth;
+        protected int iHeight;
+        public Shape()
+        {
+            Console.WriteLine("Base constrcutor is called");
+        }
+        public void setWidth(int w)
+        {
+            iWidth = w;
+        }
+        public void setHeight(int h)
+        {
+            iHeight = h;
+        }
+    }
+    class Rectangle : Shape //derived class1
+    {
+        public int getArea()
+        {
+            return (iWidth * iHeight);
+        }
+
+    }
+
+    class Square:Shape //derived class2
+    {
+        public int getArea()
+        {
+            return (iWidth * iWidth);
+        }
+    }
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Rectangle objRect = new Rectangle();
+            objRect.setWidth(10);
+            objRect.setHeight(20);
+            Console.WriteLine("Area of rectangle is: " + objRect.getArea());
+            Square objSquare = new Square();
+            objSquare.setWidth(10);
+            Console.WriteLine("Area of square is: " + objSquare.getArea());
+            Console.ReadKey();
+
+        }
+    }
+
+2.Multiple Inheritance:  (It is not supported in c#,java etc)
+       A->C
+       B->C
+
+  ->Multiple inheritance achieved by the use of interfaces:
+    namespace MultipleInheritApplication  
+    {  
+      interface calc1  
+      {  
+         int add(int a, int b);  
+      }  
+      interface calc2  
+      {  
+         int sub(int x, int y);  
+      }  
+      interface calc3  
+      {  
+         int mul(int r, int s);  
+      }  
+      interface calc4  
+      {  
+         int div(int c, int d);  
+      }  
+      class Calculation : calc1, calc2, calc3, calc4  
+      {  
+         public int result1;  
+         public int add(int a, int b)  
+         {  
+             return result1 = a + b;  
+         }  
+         public int result2;  
+         public int sub(int x, int y)  
+         {  
+             return result2 = x - y;  
+         }  
+         public int result3;  
+         public int mul(int r, int s)  
+         {  
+             return result3 = r * s;  
+         }  
+         public int result4;  
+         public int div(int c, int d)  
+         {  
+             return result4 = c / d;  
+         }  
+    
+         class Program  
+         {  
+             static void Main(string[] args)  
+             {  
+                 Calculation c = new Calculation();  
+                 c.add(8, 2);  
+                 c.sub(20, 10);  
+                 c.mul(5, 2);  
+                 c.div(20, 10);  
+                 Console.WriteLine("Multiple Inheritance concept Using Interfaces :\n ");  
+                 Console.WriteLine("Addition: " + c.result1);  
+                 Console.WriteLine("Substraction: " + c.result2);  
+                 Console.WriteLine("Multiplication :" + c.result3);  
+                 Console.WriteLine("Division: " + c.result4);  
+                 Console.ReadKey();  
+             }  
+         }  
+     }  
+ }   
+
+3.Single inheritance: A->B
+
+4.MultiLevel Inheritance:
+      A->B->C
+
+5.Hybrid Inheritance: 
+      A->B
+      A->C
+      B->D
+      C->D

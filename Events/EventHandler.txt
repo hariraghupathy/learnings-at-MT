@@ -1,0 +1,58 @@
+Events:(Publisher-subscriber pattern)
+
+ ->Properties:
+   ->Publisher determines when the event is raised
+   ->subscribers defines when action is taken to the raised event
+   ->An event can have multiple subscribers
+   ->a subscriber can handle multiple events from multiple publishers
+   ->events that have no subscribers are never raised
+ 
+  ->When events are used?
+   ->events are generally used to signal user-actions such as button click and menu selections
+   ->so when events have multiple subscribers,events are invoked synchronously
+
+  ->How to invoke synchronous methods asynchronously?
+   ->.NET framework allows us to call any method asynchronously
+   ->To do this we have to define a delegate with the same signature as the method we want to call
+   ->the clr automatically defines BeginInvoke and EndInvoke for these methods
+   1.BeginInvoke:
+     ->it will have the same set of parameters as we have for the for the method to be called asynchronously
+     ->it will also have two addintional parameters such as 
+       1.AsyncCallback -> this can refer to a callback method
+       2.optional parameter -> this parameter can be used to pass any parameter to the callback method
+     ->IAsyncResult:
+        ->the beginInvoke method returns this parameter which is used to monitor the progress of the asynchronous call
+
+   2.EndInvoke:
+     ->The endInvoke retrieves the result of the asynchronous call
+     ->It can be called at any time after BeginInvoke
+
+->How do we implement events in .NET?
+  ->In .net we implement events using the two 
+    1.EventHandler delegate
+    2.EventArgs Base class
+
+1.EventHandler delegate:
+  
+Example: public delegate void EventHandler(object sender,EventArgs e)
+  
+         ->Sender -> type is object
+                  -> the source of the event
+
+         ->e -> Event Arguments
+             -> It contains event data
+
+
+->Creation of events:
+   1.With EventArgs
+   2.Without EventArgs
+->Example : a ticker class that notifies the listener when it ticks
+
+
+->Subscription and Unsubscription of events:
+
+->Asynchronous events
+
+
+
+

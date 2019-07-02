@@ -1,0 +1,55 @@
+Layers and N-Tier architecture:
+
+
+Layers:
+  ->It is a logical unit
+  ->It is a typical way of organizing your code
+  ->Logical layers include Presentation layer , Business Layer and the Data Layer
+  ->when we talk about layers,we are talking about only logical organization of code
+
+Tiers:
+  ->It is a physical unit
+  ->They are only about where the code runs
+  ->Specially tiers are where the layers are deployed and where it runs
+  ->In other words, tiers are the physical deployment of the layers
+  ->Example: 3-tier architecture:
+             ->Client-server architecture
+             ->Presentation tier
+             ->Application tier
+             ->Data tier
+             ->In these individual tiers the different layers are deployed
+             ->it is not necessary that each tier should be in the same system,it can be on different systems also,as already said it is a client-server architecture
+
+->Difference between MVC and 3-tier architecture:
+  ->They may seem similar
+  ->a fundamental rule in the three-tier architecture is that client tier never communicates with the data tier 
+  ->and hence all communication from the client tier will pass through a middle tier and it is linear -> Presentation tier -> Application Tier -> Data Tier -> Data
+  ->whereas in MVC, what we do is in the form of a triangle, view sends update to the controller, controller to the model , and view gets updated directly from the model
+
+->N-tier or multi-tier architecture:
+  ->Client-server architecture where the presentation layer,application layer and the data layer are separate processes
+  ->for example an application that uses middleware to access its data layer employs a multi-tier architecture
+  ->The most wide-spread use of multi-tier architecture refers to three-tier architecture
+  ->An N-Tier Application program is one that is distributed among three or more separate computers in a distributed network. 
+  ->Advantages:
+     ->helps software developers to create reusable applications/systems with maximum flexibility
+  ->How to speed up:
+     ->use a cache layer in between to speed up the process of communication between these three layers
+
+->Where to use:
+  ->Applications that uses small number of users can use this architecture
+
+
+So final example with layers in a 3-tier architecture:
+    ->Presentation Tier:
+           ->UI Layer
+           ->Client Layer
+           ->Presentation Layer
+    ->Business Tier:
+            ->Hosting Layer
+            ->Service Layer
+            ->Business Layer
+    ->Data Tier:
+            ->Data Layer
+
+

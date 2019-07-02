@@ -1,0 +1,32 @@
+DDL and DML:
+
+1.DDL(Data definition language)
+
+->it is used to specify the database schema
+->create table, alter table ,drop and truncate
+
+2.DML(Data manipulation language)
+
+->is used to access, modify or retrieve the data from the database
+->CRUD(create,read,update and delete)
+
+
+
+
+MDF and MDL
+
+create database PRODUCTS1
+on primary
+(NAME = 'TEST',
+FILENAME='D:\Database\PRODUCTS.MDF',
+SIZE= 4MB,
+MAXSIZE = 15MB,
+FILEGROWTH = 2%)
+
+
+LOG ON 
+(NAME='PRODUCT1LOGS',
+FILENAME='D:\Database\PRODUCTS.LDF',
+SIZE= 4MB,
+MAXSIZE=15MB,
+FILEGROWTH=2%);

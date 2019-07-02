@@ -1,0 +1,19 @@
+
+   class A
+    {
+        public const int a = 1;
+    }
+   class Program
+    {
+        public static void Main(string[] args)
+        {
+            Console.WriteLine(A.a.ToString());
+            Console.ReadLine();         
+        }
+    }
+
+
+->constant variable are already static
+->no instantiation is required to call the constant variable
+->the value remains the same in the entire lifetime of the program
+

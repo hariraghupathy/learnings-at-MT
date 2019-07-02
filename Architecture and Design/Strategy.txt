@@ -1,0 +1,78 @@
+Strategy Design Pattern:
+   ->It defines a family of algorithms, encapsulates each one of them and makes them interchangeable
+     1.Family of algorithms:
+           ->this means we already have the functionalities whic does the same thing(for example sorting is of same functionality but is of diff types)
+     2.Encapsulate each one of them:
+           ->this will force us to keep these algorithms of same functionality in different classes
+           ->Doing so will help us in selecting the appropriate algorithm which is required for the client
+     3.Making them interchangeable:
+           ->the beauty with strategy pattern is that we can select which algorithm we have to use at run time and we can replace them with one another
+
+
+Implementation with code:
+   ->First write the interface which has the method for the same functionality to be performed
+   ->then define individual classes for individual algorithms
+   
+   public Interface ISorting
+   {
+      void Sort<T>(List<T> dataToBeSorted);
+   }
+
+   public class QuickSort : ISorting
+   {
+      public void Sort<T>(List<T> dataToBeSorted)
+      {}
+   }
+
+   public class MergeSort: ISorting
+   {
+      public void Sort<T>(List<T> dataToBeSorted)
+      {}
+   }
+
+   public class HeapSort : ISorting
+   {
+      public void Sort<T>(List<T> dataToBeSorted)
+      {}
+   }
+   
+   public enum ObjectToSort
+   {
+      StudentNumbers,
+      RailwayPassengers,
+      CountyResidents
+   }
+
+
+Main Code:
+   Class Program
+   {
+     public static void Main(string[] args)
+     {
+         ISorting obj=null;
+         List<string> lstCountyResidents=new List<string>("ab","cd","ef","gh","ij");
+         obj=GetSortingType(ObjectToSort.CountyResidents);
+         obj.Sort(lstCountyResidents);
+     }
+     private static ISorting GetSortingType(ObjectToSort pobjSort)
+     {
+        ISorting objSorting=null;
+        switch(pobjSort)
+        {  
+           case ObjectToSort.StudentNumber:
+              objSorting=new MergeSort();
+              break;
+           case ObjectToSort.RailwayPassengers:
+              objSorting=new HeapSort();
+              break;
+           case ObjectToSort.CountyResidents:
+              objSorting=new QuickSort();
+              break;
+           default:
+              break;
+           
+        }
+        return objSorting;
+
+     }
+   }

@@ -1,0 +1,172 @@
+Association:(https://www.geeksforgeeks.org/association-composition-aggregation-java/)
+  ->Association is the relation between two separate classes which establishes through their objects
+  ->Association can be of many types:one-to-one,one-to-many,many-to-one,many-to-many
+
+  ->In OOPS,an object communicates to another object to use functionality and services provided by that object  
+
+  ->Composition and Aggregation are the two forms of association
+
+
+->Example of Association:
+  
+namespace Association
+{
+    class Bank
+    {
+        private string strName;
+
+        public Bank(string strName)
+        {
+            this.strName = strName;
+        }
+
+        public string GetBankName()
+        {
+            return this.strName;
+        }
+    }
+
+    class Employee
+    {
+        private string strName;
+
+        public Employee(string strName)
+        {
+            this.strName = strName;
+        }
+
+        public string GetEmployeeName()
+        {
+            return this.strName;
+        }
+
+    }
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            //association between both the classes in the main method
+            Bank objbank = new Bank("Standard Charetered");
+            Employee objEmployee = new Employee("Hari Krishnan");
+            Console.WriteLine(objEmployee.GetEmployeeName() + " is the employee of " + objbank.GetBankName());
+            Console.ReadKey();
+        }
+    }
+}
+
+the above example is one to many relationship
+
+
+Aggregation:
+  ->It is a uni-directional association i.e a one-way relationship
+  ->For example:department can have students and students cannot have departments
+  ->In aggregation,both the entities can survive individually which means ending one entity will not affect another entity
+  ->Example:
+namespace Aggreagtion
+{
+    class Student
+    {
+        string name;
+        int id;
+        string dept;
+
+        public Student(string name,int id,string dept)
+        {
+            this.name = name;
+            this.id = id;
+            this.dept = dept;
+        }
+    }
+
+    //Department class contains list of student objects
+    //It is associated with student class with their objects
+
+    class Department
+    {
+        string name;
+        private List<Student> students;
+        public Department(string name,List<Student> students)
+        {
+            this.name = name;
+            this.students = students;
+        }
+        public List<Student> getStudents()
+        {
+            return students;
+        }
+    }
+
+    //Institute class contains list of department objects
+    //It is associated with department class through its objects
+
+    class Institute
+    {
+        String instituteName;
+        private List<Department> departments;
+
+        public Institute(String instituteName, List<Department> departments)
+        {
+            this.instituteName = instituteName;
+            this.departments = departments;
+        }
+
+        // count total students of all departments 
+        // in a given institute  
+        public int getTotalStudentsInInstitute()
+        {
+            int noOfStudents = 0;
+            List<Student> students;
+            foreach(Department dept in departments)
+            {
+                students = dept.getStudents();
+                foreach(Student s in students)
+                {
+                    noOfStudents++;
+                }
+            }
+            return noOfStudents;
+        }
+    }
+
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Student s1 = new Student("Mia", 1, "CSE");
+            Student s2 = new Student("Priya", 2, "CSE");
+            Student s3 = new Student("John", 1, "EE");
+            Student s4 = new Student("Rahul", 2, "EE");
+
+            // making a List of  
+            // CSE Students. 
+            List<Student> cse_students = new List<Student>();
+            cse_students.Add(s1);
+            cse_students.Add(s2);
+
+            // making a List of  
+            // EE Students 
+            List<Student> ee_students = new List<Student>();
+            ee_students.Add(s3);
+            ee_students.Add(s4);
+
+
+            Department CSE = new Department("CSE", cse_students);
+            Department EE = new Department("EE", ee_students);
+
+
+            List<Department> departments = new List<Department>();
+            departments.Add(CSE);
+            departments.Add(EE);
+
+            // creating an instance of Institute. 
+            Institute institute = new Institute("BITS", departments);
+
+            Console.WriteLine("Total students in institute: ");
+            Console.WriteLine(institute.getTotalStudentsInInstitute());
+            Console.ReadKey();
+        }
+    }
+}
+
+

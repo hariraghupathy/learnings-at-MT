@@ -1,0 +1,17 @@
+MVP pattern:
+
+->Model view presenter pattern
+        ->developed from the MVC pattern
+        ->here the controller is renamed to presenter
+        ->Here the view and the model are neatly separated (actually they don't know each other)
+        ->Presenter works as intermediate between Model and View
+        ->It binds the view with the model
+
+->Actual Architecture:
+       ->View -><- Presenter -><- Model
+
+->In the following diagram a couple of blocks are added as interfaces through which the presenter will interact
+       ->View -> IView(Interface) <- Presenter -> IModel(Interface) ->Model
+         
+
+->Example of MVP with a simple example in WPF

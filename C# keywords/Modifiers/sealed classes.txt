@@ -1,0 +1,4 @@
+->sealed classes are used to restrict inheritance
+->When to use sealed classes?
+  ->When we want our static members not to be inherited
+  

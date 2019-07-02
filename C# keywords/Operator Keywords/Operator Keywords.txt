@@ -1,0 +1,126 @@
+Operator Keywords:
+  ->Used to perform miscellaneous actions such as creating objects,checking the run-time type of an object,
+    obtaining the size of a type and other actions
+
+1.as:
+  ->It converts an object to its compatible type
+  ->Example:       string str1 = "Hari";
+                   object objStr1 = str1;
+
+                   //casting objects using as
+                   string tempStr1 = objStr1 as string;
+                   if (tempStr1 != null)
+                      Console.WriteLine(tempStr1);      
+                   Console.ReadKey();
+
+2.Diff between string and stringBuilder:
+  ->string:
+      ->It is immutable and it cannot be modified
+      ->everytime you create a string, a new instance is created
+      ->If we change or concatenate also a new instance is created
+ 
+  ->stringBuilder:
+      ->It is mutable
+      ->if we create the string builder object we can append,modify or delete with the same instance
+      ->new instance is not created every time
+      ->It will update string at one place in the memory and does not create new space in memory
+
+3.is:
+  ->It is used to evaluate type compatibility at runtime
+  ->Example:
+          class Person
+          {
+             public int Age { get; set; }
+             public string Name { get; set; }
+          }
+          class Animal
+          {
+             public int Name { get; set; }
+          }
+          class Program
+          {
+             static void Main(string[] args)
+             {
+               Person objPerson = new Person();
+               Animal objAnimal = new Animal();
+               if (objPerson is Person)
+                 Console.WriteLine("is operator succeeds");
+               if (objAnimal is Person)
+                 Console.WriteLine("is operator fails");     
+               Console.ReadKey();
+             }
+          }
+
+
+4.sizeof:
+   ->obtains the size in bytes of an unmanaged type
+   ->Example: sizeof(int) -> result : 4
+
+5.typeof:
+   ->used to obtain the type object of a type
+   ->Example:
+      ->System.Type objType=i.GetType();
+        (or)
+        System.Type objType=typeof(int);
+
+   ->Example:
+    class Animal
+    {
+        public int Name { get; set; }
+        public int Display()
+        {
+            return 1;
+        }
+    }
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Animal objAnimal = new Animal();
+            MethodInfo objMethodInfo = objAnimal.GetType().GetMethod("Display");
+            Type strType = objMethodInfo.ReturnType;
+            Console.WriteLine(strType.ToString());
+            Console.ReadKey();
+        }
+    }
+
+
+6.stackalloc:
+   ->It is used in an unsafe context to allocate a block memory on the stack
+   ->Example : in unsafe block: int* block=stackalloc int[100];
+   ->Why do we use it:
+       ->Sole reason is to improve performance
+       ->By using stackalloc instead of heap allocated array,you crete less GC pressure
+       ->since arrays are itself a reference type , if we allocate in stack, it would be more efficient
+
+7.nameof:
+   ->It is used to obtain the simple string name of a variable,type or member
+   ->class A
+    {
+        string strName = "Hari";
+        public void Display()
+        {
+            ArgumentNullException objException=new ArgumentNullException();
+            try
+            {
+                throw objException;
+            }
+            catch (ArgumentNullException ex)
+            {
+                Console.WriteLine(nameof(A.strName));
+            }
+        }
+    }
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            A a = new A();
+            a.Display();
+            Console.ReadKey();
+        }
+    }
+
+
+->false and true operators are pending
+ 

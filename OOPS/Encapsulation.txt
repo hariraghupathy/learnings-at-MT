@@ -1,0 +1,63 @@
+Encapsulation:(It is simply hiding the implementation details)  
+    ->Link(https://www.c-sharpcorner.com/article/encapsulation-in-C-Sharp/)
+    ->Hiding of data
+    ->A language mechanism to restrict direct access to some components of a class
+    ->It is acheived by declaring the member as private 
+    ->It is bundling of data with the methods that operate on that data
+    
+    ->Why it is done?
+        ->It is done in order to not to allow outside class members to modify its value
+        ->Example:
+             class Program
+             {
+	        public class Account 
+                {
+		   private decimal accountBalance = 500.00m;
+
+        	   public decimal CheckBalance() 
+                   {
+			return accountBalance;
+		   }
+	        }
+
+         	static void Main() 
+                {
+		   Account myAccount = new Account();
+		   decimal myBalance = myAccount.CheckBalance();
+
+      		   /* This Main method can check the balance via the public
+		   * "CheckBalance" method provided by the "Account" class 
+		   * but it cannot manipulate the value of "accountBalance" */
+	        }
+             }
+
+  
+      ->Encapsulation using properties:
+            public class Department 
+            {  
+               private string departname;  
+               public string Departname 
+               {  
+                 get 
+                 {       
+                    return departname;  
+                 }  
+                 set 
+                 {  
+                    departname = value;  
+                 }  
+               }  
+            }  
+
+           public class Departmentmain 
+           {  
+               public static int Main(string[] args) 
+               {  
+                   Department d = new Department();  
+                   d.departname = "Communication";  
+                   Console.WriteLine("The Department is :{0}", d.Departname);  
+                   return 0;  
+               }  
+           }  
+
+       ->Encapsulation using read-only properties and write-only properties

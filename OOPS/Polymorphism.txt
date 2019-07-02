@@ -1,0 +1,23 @@
+Polymorphism:
+  1.Compile-time polymorphism -> overloading
+  2.Run-time polymorphism -> overriding
+
+1.Overloading:
+   ->The number of parameters may differ
+   ->the type of parameters may differ
+   ->return type may differ
+   ->same name
+   ->early binding
+   ->same class 
+   ->compile time polymorphism
+
+2.Overriding:
+   ->same signature
+   ->same number of parameters 
+   ->different class(by inheritance)
+   ->late binding
+   ->run time polymorphism
+
+
+
+    

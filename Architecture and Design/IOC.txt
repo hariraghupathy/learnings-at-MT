@@ -1,0 +1,134 @@
+IOC:
+  ->Inversion of control
+  ->Example:
+      ->Take a college class which has activities like Technical events,cultural events and sports events
+      ->Now these three events will have separate classes and its own functionalities
+      ->In normal code what we do is inside the constructor of the college class,we load the objects of the individual events respectively and execute
+      
+Aggregate Class:
+      ->an aggregate class is a class with no user-declared constructors,no private or protected members,no base classes and no virtual functions
+
+->So a main class should not have a concrete implementation of an aggregate class and so what we do is in such a way that the main class will depend on the abstraction of 
+  that aggregate classes
+->So we define an interface and this will have functionalities (for example loadeventdetails) and this will be implemented in all aggregate classes
+->Then we create object of that particular event type and we pass it to the college constructor and that will call the implementation
+->So we should not create object for each event inside the college class because this makes the college class dependent on all the events , so this is tight coupling
+
+->Code with inversion of control:
+
+     public Interface IEvent
+     {
+        void LoadEventDetails();
+     }
+  
+     class TechEvents : IEvent            ->This is an aggregate class
+     { 
+         public void LoadEventDetails()
+         {Console.WriteLine("Technical Events");}   
+     }
+
+     class CulturalEvents : IEvent
+     {
+         public void LoadEventDetails()
+         {Console.WriteLine("Cultural Events");}
+     }
+
+     class SportsEvents : IEvent
+     {
+         public void LoadEventDetails()
+         {Console.WriteLine("Sports Events");}
+     }
+
+     public class College
+     {
+          public IEvent _events=null;
+          public College(IEvent ie)
+          {
+             this._events=ie;
+          }
+          public void GetEvents()
+          {
+             this._events.LoadEventDetail(); 
+          }
+     }
+
+
+
+     College class code without IOC:
+     
+     class College
+     {
+         private TechEvents _events=null;  
+         College()                              ->This is tight coupling, because while instantiating college class, it is dependent on other class
+         {
+             _events=new TechEvents();
+         }
+         public void GetEvents()
+         {
+             _events.LoadEventDetails();
+         }
+     }
+
+
+   Dependency Injection:
+   ->IOC can be done using dependency injection
+   ->IOC -> DI -> by means of ->constructor,properties,method and service locator
+
+   ->injection via constructor:
+        ->the object of the concrete class is passed as input to the constructor of the dependent class
+          class College  
+          {  
+            private IEvent _events;  
+            public College(IEvent ie)  
+            {   
+              _events = ie;  
+            }  
+ 
+            public void GetEvents()  
+            {  
+               this._events.LoadEventDetail();  
+            }  
+  
+          } 
+
+    ->injection via property:
+         ->this is the most commonly used way of dependency injection
+         ->we inject the concrete class object by creating property whose type is of interface in the dependent class  
+
+         class College  
+         {  
+            private IEvent _events;  
+            public IEvent MyEvent  
+            {  
+              set  
+              {  
+               _events = value;  
+              }  
+            }  
+         }  
+
+     ->injection via method:
+        
+        class College  
+        {  
+          private IEvent _events;  
+          public void GetEvent(IEvent myevent)  
+          {  
+            this._events = myevent;  
+          }  
+        }  
+
+
+Advantages:
+     ->Code reusability
+     ->easy maintainance,understanding and testing
+
+
+Summary:
+     ->So inversion of control talks about who is going to initiate the call 
+     ->Dependency injection is about how the object acquires dependency on other object through abstraction
+
+
+Common Example:
+     ->if we use multiple databases,we read the connection string and load the dbContext object depending upon the db type
+     ->so dbContext object is injected 

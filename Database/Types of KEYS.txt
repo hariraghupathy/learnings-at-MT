@@ -1,0 +1,109 @@
+Key:
+  ->a dataitem that explicitly identifies a record
+  ->in other words , it is a set of columns that is used uniquely to identify the records in a table
+  ->they are used to either put constraints on table columns or to establish relationships between two tables
+
+Types of keys:
+1.Super key
+2.Minimal super key
+3.candidate key
+4.Primary key
+5.Unique key
+6.Alternate Key
+7.Composite Key
+8.Foreign key
+9.Natural key
+10.Surrogate key
+
+
+1.Candidate key:  
+ ->minimal super-key
+ ->so a table can have any number of candidate keys but only one primary key
+ ->minimal super key is the candidate key
+
+2.Primary Key:
+ ->It uniquely identifies each record in a table and must never be the same for two records
+ ->a table can have only one primary key or it can be a composite primary key
+ ->a candidate key of our choice can be selected as a primary key
+ ->primary key should be chosen in such a way that its attributes are rarely changed or never changed
+
+3.Alternate Key:
+ ->Alternate keys are candidate keys which are not selected as a primary key
+ ->Alternate keys are also called as Secondary keys
+
+
+4.Unique Key:
+ ->It is a set of one or more attributes that can be used to uniquely identify records in a table
+ ->Unique key is similar to primary key but unique key can contain a null value
+ ->primary does not allow null value
+ ->Clustered and non-clustered index:
+   ->Without indexes a database will take long time to go through all the records
+   ->so if we create indexes, the database will go to the index first and then retrieve the record in that index
+   ->sp_helpindex:
+        ->to see all the indexes in a particular table,execute the above procedure
+        ->Example:index name:'PK__Employee__3213E83F4B899164'
+                  index description:'clustered, unique, primary key located on PRIMARY'
+   ->Clustered Index:
+        ->It defines the order in which data is stored in the table
+        ->Data can be sorted in any way,so therefore there can be only one clustered index in a table
+        ->primary key constraint automatically creates a clustered index
+        ->the clustered index stores the records in the ascending order of the primary column
+        ->we can also create our own clustered indexes
+        ->The clustered index and the table are at the same place,thats why only one clustered index can be present for a table
+   ->Non-clustered index:
+        ->It does not sort the physical data inside the table
+        ->The index is stored at one place and the table data is stored in another place
+        ->Example: In a book the index is at one place and contents are at various places
+        ->so this allows the table to have multiple non-clustered indexes
+        ->It is important to note that inside the table data will be sorted by a clustered index
+        ->Inside the non-clustered index,data is stored in the specified order
+        ->So when a query is fired against the column containing the non-clustered index,it first goes to the index and takes the address of the record and then fetches the recors with respect to the address 
+        ->It is due to this additional step that non-clustered indexes are slower than clustered indexes
+        ->unique key creates non-clustered index  
+
+5.Composite Key:
+  ->Combination of more than one attribute used to uniquely identify the records in a table
+  ->Also known as Compound key
+  ->A composite key's attributes which needs to be combined can be either a primary key or a candidate key
+  ->Example:Composite Primary Key
+
+6.Super Key:
+  ->In a table,all possible combination that uniquely identify a record are all considered to be super keys
+  ->Example: A table contains the following columns : 1.ID(Primary),StudentID,SubjectID,Marks
+  ->Possible super keys are  : {StudentID,SubjectID},{ID} are the possible super keys 
+
+7.Minimal Super Key:
+  ->Minimum number of columns in a super key combination to uniquely identify the records in a table
+  ->In the above example:{ID} is the minimal super key
+  ->all the minimal super keys are candidate keys
+  ->but only one candidate key can be a primary key
+
+8.Artificial Key or Surrogate Key:
+  ->Artificial key that is used to uniquely identify a record in a table
+  ->Example:SqlServer contains an artificial key known as Identity
+  ->Surrogate keys are just simple sequential number. Surrogate keys are only used to act as a primary key. 
+  
+9.Foreign Key:
+  ->Foreign key is used to generate the relationship between the tables.
+  ->Foreign Key is a field in database table that is Primary key in another table. 
+  ->A foreign key can accept null and duplicate value.
+
+10.Natural Key:
+  ->It is a candidate key
+  ->suppose we have two super keys : {id},{id,age}
+  ->natural key is a key which has logical relationship with other attributes as well
+  ->in the above example: id is enough to identify a unique record , but id,age is also a candidate key , thus id has a relationship with age
+  ->so id is a natural key
+  ->so why they are identified: they are identified in order to note that id is enough to identify a record, there is no need to combine id and age to uniquely identify a record
+
+
+Summary:
+   ->a minimal super-key is a candidate key
+   ->Hierarchy: Super keys (List of all possible key combinations to uniquely identify a record) -> Candidate Keys (minimal super key's) -> Primary Key(only one candidate key can be a primary key)
+    
+       
+
+
+
+                                        
+  

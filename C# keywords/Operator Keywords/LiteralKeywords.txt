@@ -1,0 +1,19 @@
+c# has the following literal keywords:
+1.null
+2.true
+3.false
+4.default
+
+1.null:
+->null keyword represents a null reference
+->one that does not refer to any object
+->null is the default value of reference-type variables
+->Ordinary value types cannot be null
+->so c# introduced nullable types
+
+
+2.default:
+->default keywoed can be used in switch statement or in a default value expression
+->default value expressions can be used with any managed type
+Example: var s=default(string);
+

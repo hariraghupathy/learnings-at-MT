@@ -1,0 +1,117 @@
+Observer Pattern Implementation through code
+1.create three separate forms
+2.one is main form,the other two are the observer forms
+3.main form has two buttons + and -
+4.the observer forms both are made to listen to the buttons in the main form
+5.there can be any number of observers but the thing is the observer form should implement the Observer interface
+6.only then we can pass that particular observer form as parameter to the Register method
+
+code:
+
+ISubject.cs:
+
+namespace ObserverinWinForms
+{
+    public interface ISubject
+    {
+        void RegisterObserver(IObserver observer);
+        void UnRegisterObserver(IObserver observer);
+        void Notify(int piCount);
+    }
+}
+
+
+IObserver.cs:
+
+namespace ObserverinWinForms
+{
+    public interface IObserver
+    {
+        void update(int piCount);
+    }
+}
+
+
+MainForm.cs:
+
+namespace ObserverinWinForms
+{
+    public partial class fromMain : Form
+    {
+        private Counter counter;
+        private formText frmText;
+        private FormText2 frmText2;
+        public fromMain()
+        {
+            InitializeComponent();
+            counter = new Counter();
+            //register all the observers here in the main form
+            frmText = new formText();
+            frmText2 = new FormText2();
+            Button btn = new Button();
+            counter.RegisterObserver(frmText);
+            counter.RegisterObserver(frmText2);
+            frmText.Show();
+            frmText2.Show();
+        }
+        private void btnIncrease_Click(object sender, EventArgs e)
+        {
+            counter.Increment();
+        }
+
+        private void btnDecrease_Click(object sender, EventArgs e)
+        {
+            counter.Decrement();
+        }
+    }
+}
+
+
+
+counter.cs(counter class):
+
+
+namespace ObserverinWinForms
+{
+    class Counter : ObserverinWinForms.ISubject
+    {
+        private List<IObserver> _lstObserver;
+        private int count;
+
+        public Counter()
+        {
+            _lstObserver = new List<IObserver>();
+            count = 0;
+        }
+
+        public void Notify(int piCount)
+        {
+            _lstObserver.ForEach(x => x.update(piCount));
+        }
+
+        public void RegisterObserver(IObserver observer)
+        {
+            _lstObserver.Add(observer);
+        }
+
+        public void UnRegisterObserver(IObserver observer)
+        {
+            _lstObserver.Remove(observer);
+        }
+
+        public void Increment()
+        {
+            count++;
+            Notify(count);
+        }
+
+        public void Decrement()
+        {
+            if (count > 0)
+            {
+                count--;
+                Notify(count);
+            }
+        }
+    }
+}

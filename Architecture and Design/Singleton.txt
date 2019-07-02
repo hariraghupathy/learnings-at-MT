@@ -1,0 +1,75 @@
+Singleton design pattern:
+    ->we need only a single instance of a class
+    ->Example:  Log Writer:
+               ->We need to write Logs in a sequence in a single file for different clients
+               ->ExecuteServiceFlow is used for extraction where multiple clients call executeServiceFlow for extraction
+               ->LogWriter Object will be created each and every time when each client calls the extraction flow
+               ->So make the LogWriter class a singleton class
+               ->so when multiple threads try to access LogWriter,it makes the object a shared object and helps in only single instance creation .
+               ->so the object will be locked and full access will be given to the client who is currently accessing and once this object is disposed ,the next client can access it
+               ->so a thread safe object is used in order to instantiate the singleton class
+    ->Code:
+        ->Thread Safe: 
+            public sealed class Singleton
+            {
+               private Singleton()
+               {}
+               private static readonly object shareLock=new object();
+               private static Singleton Instance=null;
+               public static Singleton Instance                   
+               {
+                  get
+                  {
+                     lock(shareLock)    ->this checks whether some other thread has created an object of this kind and restricts from creating again 
+                     {
+                       if(instance==null)
+                       {
+                          instance=new Singleton();
+                       }
+                       return instance;
+                     }
+                  }
+               }
+            }
+
+->Lazy Initialization:
+          
+          public sealed class Singleton
+          {
+             private Singleton()
+             {
+             }
+             private static readonly Lazy<Singleton> lazy=new Lazy<Singleton>(()=>new Singleton());
+             public static Singleton Instance
+             {
+                 get
+                 {
+                    return lazy.value;
+                 }
+             }
+          }
+
+
+Implementing a singleton pattern:
+    ->single constructor that is private and parameterless ->it is private because it never allows the class to be inherited
+    ->the class is sealed(cannot be inherited) ->purpose is for not inheriting -> we also use sealed in order to restrict this also in case of sealed classes 
+    ->a static variable
+
+
+
+When we use a singleton pattern:
+    ->When our clients need concurrent access to a shared resource;then we have to follow the singleton pattern (WCF will follow singleton pattern)
+    ->it prevents deadlock or conflict
+  
+Advantages:
+    ->The main advantage is that it allows only one instantiation by which even when there are multiple clients ; they make use of the shared object in a very controlled state
+
+Disadvantages:
+     ->This singleton pattern reduce the performance because it will make other clients wait for a period of time
+
+Lazy Initialization: 
+    ->Object is instantiated only when there is a need to instantiate and access the members of the class
+    ->It means it starts the application and does not depend on all the instance creations at the beginning
+    ->Not all objects are instantiated at the same time, but only when they are needed
+    ->so when creating an instance of a class is very expensive to construct , we go for lazy initialization (we use get in order to create the instance)
+

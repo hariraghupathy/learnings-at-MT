@@ -1,0 +1,34 @@
+Volatile:
+  ->volatile modifier indicates that a field can be modified by multiple threads that are executing at the same time
+  ->It can be declared only to members of a class or struct
+  ->global variables under the namespace cannot be declared volatile
+
+
+   class A
+    {
+
+        public static volatile int i = 1;                      //need not give volatile here since we are using lock, if we don't give lock, compiler will handle multiple
+        public static readonly object obj = new object();        access by threads when we declare the variable with volatile keyword
+        public static void Display()
+        {
+            lock (obj)
+            {
+                i++;
+                Console.WriteLine("Volatile variable: " + i.ToString());
+                Thread.Sleep(3000);
+            }
+        }
+    }
+    class Program
+    {
+        public static void Main(string[] args)
+        {
+            foreach (var item in Enumerable.Range(1,5))
+            {
+                Thread t = new Thread(A.Display);
+                t.Start();
+            }
+            Console.ReadLine();
+     
+        }
+    }

@@ -1,0 +1,4 @@
+stack vs heap:
+
+1.stack : not fragmented memory
+2.heap : fragmented memory

@@ -1,0 +1,14 @@
+C:\Users\vr-1\Desktop\Hari Krishnan\Hari Krishnan Old\DotNet\Background Worker\bgWorker\bin\Debug\bgWorker.exe.config
+C:\Users\vr-1\Desktop\Hari Krishnan\Hari Krishnan Old\DotNet\Background Worker\bgWorker\bin\Debug\bgWorker.exe
+C:\Users\vr-1\Desktop\Hari Krishnan\Hari Krishnan Old\DotNet\Background Worker\bgWorker\bin\Debug\bgWorker.pdb
+C:\Users\vr-1\Desktop\Hari Krishnan\Hari Krishnan Old\DotNet\Background Worker\bgWorker\obj\Debug\bgWorker.csprojResolveAssemblyReference.cache
+C:\Users\vr-1\Desktop\Hari Krishnan\Hari Krishnan Old\DotNet\Background Worker\bgWorker\obj\Debug\MainWindow.g.cs
+C:\Users\vr-1\Desktop\Hari Krishnan\Hari Krishnan Old\DotNet\Background Worker\bgWorker\obj\Debug\App.g.cs
+C:\Users\vr-1\Desktop\Hari Krishnan\Hari Krishnan Old\DotNet\Background Worker\bgWorker\obj\Debug\bgWorker_MarkupCompile.cache
+C:\Users\vr-1\Desktop\Hari Krishnan\Hari Krishnan Old\DotNet\Background Worker\bgWorker\obj\Debug\bgWorker_MarkupCompile.lref
+C:\Users\vr-1\Desktop\Hari Krishnan\Hari Krishnan Old\DotNet\Background Worker\bgWorker\obj\Debug\MainWindow.baml
+C:\Users\vr-1\Desktop\Hari Krishnan\Hari Krishnan Old\DotNet\Background Worker\bgWorker\obj\Debug\bgWorker.g.resources
+C:\Users\vr-1\Desktop\Hari Krishnan\Hari Krishnan Old\DotNet\Background Worker\bgWorker\obj\Debug\bgWorker.Properties.Resources.resources
+C:\Users\vr-1\Desktop\Hari Krishnan\Hari Krishnan Old\DotNet\Background Worker\bgWorker\obj\Debug\bgWorker.csproj.GenerateResource.Cache
+C:\Users\vr-1\Desktop\Hari Krishnan\Hari Krishnan Old\DotNet\Background Worker\bgWorker\obj\Debug\bgWorker.exe
+C:\Users\vr-1\Desktop\Hari Krishnan\Hari Krishnan Old\DotNet\Background Worker\bgWorker\obj\Debug\bgWorker.pdb

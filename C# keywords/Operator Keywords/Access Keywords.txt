@@ -1,0 +1,73 @@
+Access Keywords:
+1.Base
+2.this
+
+1.Base:
+  ->Access the members of the base class
+
+  ->Example:
+    class A
+    {
+        public virtual void Display()
+        {
+            Console.WriteLine("BaseDisplay");
+        }
+    }
+    class B:A
+    {
+        public override void Display()
+        {
+            base.Display();
+        }
+
+    }
+
+    class Program:A
+    {
+        static void Main(string[] args)
+        {
+            B obj = new ConsoleApplication2.B();
+            obj.Display();
+            Console.ReadKey();
+        }
+    }
+
+2.this:
+  ->this refers to the current instance of the class  
+
+  ->Example:
+    public class A
+    {
+        public string strName;
+        public string strAge;
+        public int iID;
+        public A()
+        {
+            this.strName = "Hari Krishnan";
+            this.strAge = "22";
+            this.iID = 418991;
+        }
+
+        public void Fetch()
+        {
+            Console.WriteLine(strName + " " + strAge + " " + iID.ToString());
+        }
+        public  void Display()
+        {
+            this.Fetch();
+        }
+
+     
+    }
+
+    class Program:A
+    {
+        static void Main(string[] args)
+        {
+            A obj = new A();
+            obj.Display();
+            Console.ReadKey();
+        }
+    }
+
+

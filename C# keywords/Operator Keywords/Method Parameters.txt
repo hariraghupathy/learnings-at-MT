@@ -1,0 +1,143 @@
+Method Parameters:
+1.params
+2.in(Parameter modifier)
+3.ref
+4.out(Parameter modifier)
+
+1.params:
+   ->using the params keyword, you can specify a parameter which takes variable number of arguments
+   ->You can send a comma-separated list of arguments of the type specified in the parameter declaration or an array of arguments of the specified type
+   ->You also can send no arguments
+   ->If you send no arguments, the length of the params list is zero
+   ->The declared type of the params parameter must be a single-dimensional array
+   ->Example:
+    public class A
+    {
+        public static void UseParams(params int[] list)
+        {
+            for (int i = 0; i < list.Length; i++)
+            {
+                Console.Write(list[i] + " ");
+            }
+            Console.WriteLine();
+        }
+
+        public static void UseParams2(params object[] list)
+        {
+            for (int i = 0; i < list.Length; i++)
+            {
+                Console.Write(list[i] + " ");
+            }
+            Console.WriteLine();
+        }
+    }
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            A.UseParams(1, 2, 3, 4);
+            A.UseParams2(1, 'a', "test");
+            A.UseParams2();
+            int[] myIntArray = { 5, 6, 7, 8, 9 };
+            A.UseParams(myIntArray);
+
+            object[] myObjArray = { 2, 'b', "test", "again" };
+            A.UseParams2(myObjArray);
+            Console.ReadKey();
+        }
+    }
+
+
+
+
+2.in(Parameter Modifier)
+     ->in keyword causes arguments to be passed by reference
+     ->It is like the ref and out keywords
+     ->but , the only difference is in arguments cannot be modified or assigned any values in the called method(consider like read only)
+     ->before passing an in parameter , its value should be assigned 
+     ->only the in parameter can be used in the called method
+     ->Example:
+       int readonlyArgument = 44;
+       InArgExample(readonlyArgument);
+       Console.WriteLine(readonlyArgument);     // value is still 44
+ 
+       void InArgExample(in int number)
+       {
+          // Uncomment the following line to see error CS8331
+          //number = 19;
+       }
+
+     ->overloading not allowed in the below case:
+       class CS0663_Example
+       {
+          // Compiler error CS0663: "Cannot define overloaded 
+          // methods that differ only on in, ref and out".
+          public void SampleMethod(in int i) { }
+          public void SampleMethod(ref int i) { } 
+       }
+ 
+     ->overloading based on the presence of in is allowed
+      class InOverloads
+      {
+         public void SampleMethod(in int i) { }
+         public void SampleMethod(int i) { }
+      }
+
+3.ref:
+     ->ref keyword also indicates a value that is passed by reference
+     ->Example:
+     public class A
+     {
+        public static void Add(ref int piRefInteger)
+        {
+            piRefInteger++;
+        }
+     }
+     class Program
+     {
+        static void Main(string[] args)
+        {
+            int i = 0;
+            A.Add(ref i);
+            Console.WriteLine(i);
+            Console.ReadKey();
+        }
+     }
+     op:1
+     ->if ref is not used , output will be 0
+
+     ->ref return types:
+        ->public ref decimal GetCurrentPrice()
+          {
+              return ref DecimalArray[0];
+          }
+        
+          ->You define a ref local by using the ref keyword before the variable declaration, 
+          as well as immediately before the call to the method that returns the value by reference.
+        
+        ->Example:ref decimal estValue = ref GetCurrentPrice();
+
+
+4.out parameter:
+     ->out keyword causes arguments to be passed by reference
+     ->it is similar to the ref keyword, except that
+     ->ref requires the variable to be initialize before it is passed
+     ->To use an out parameter, both the method definition and the calling method must explicitly use the out keyword
+     ->Example:
+        int initializeInMethod;
+        OutArgExample(out initializeInMethod);
+        Console.WriteLine(initializeInMethod);     // value is now 44
+
+        void OutArgExample(out int number)
+        {
+            number = 44;
+        }
+
+
+
+Key differences:
+           In : should be initialized before passing it to the called method and called method cannot modify it
+           Out : need not be initialized, can be modified by the called method
+           Ref : need to be initialized before passing it to the called method , can be modified by the called method
+           Params : the list or array can take any number of parameters and it will adjust according to the size of the array passed   
+ 

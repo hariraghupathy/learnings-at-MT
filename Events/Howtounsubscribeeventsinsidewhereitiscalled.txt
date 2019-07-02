@@ -1,0 +1,37 @@
+ public void GetInstrumentDetails(SerialPort pSerialPort)
+        {
+            try
+            {
+                Action unsub = null;
+                SerialDataReceivedEventHandler hdnlr = (object sender, SerialDataReceivedEventArgs e)=>
+                {
+
+                    try
+                    {
+                        SerialPort port = (SerialPort)sender;
+                        string strPingData = port.ReadLine();
+                        if (!(string.IsNullOrEmpty(strPingData)))
+                        {
+                            BusinessService.InstrumentDTO mInstDetails = new BusinessService.InstrumentDTO();
+                            ParseInstrumentDetails(strPingData, out mInstDetails);
+                            AddToInstrumentDetailsContainingPortNumber(mInstDetails, port.PortName);
+                            NewInstrumentAdded(mInstDetails);
+                            unsub();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+
+                    }
+                };
+                unsub = () =>
+                {
+                    pSerialPort.DataReceived -= hdnlr;
+                };
+                pSerialPort.DataReceived += hdnlr;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
