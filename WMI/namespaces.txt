@@ -1,0 +1,10 @@
+
+root\CIMV2:(Default namespace)
+
+->Everything related to hardware and software will be available in this namespace
+
+
+classes:
+
+->It will give information about the respetive hardware or software with respect to the class
+

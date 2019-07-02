@@ -1,0 +1,16 @@
+WPF with and without MVVM:
+
+WPF without MVVM:
+  ->This is what i have done in our IPSDefinition
+  ->It is a code-behind approach and does not follow any pattern
+  ->It is similar to the windows forms where we double click each control in the design and write the functionalities with respet to the control
+
+WPF with MVVM:
+  ->Here we follow a pattern known as MVVM
+  ->The abbrevation is Model View ViewModel
+  ->The Model will hold all the database related classes which will be queried using Entity Framework
+  ->The View will contain the Xaml and the design 
+  ->The ViewModel will hold all the business logic
+  ->It will help the view in communicating with the model and vice versa through one way data binding ot two way data binding
+  ->care should be taken that the variables in the view model are bound to the view in the XAML properly
+

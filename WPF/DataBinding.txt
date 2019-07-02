@@ -1,0 +1,56 @@
+DataBinding: (link:https://www.codeproject.com/Articles/29054/WPF-Data-Binding-Part)
+  ->DataBinding is a mechanism in WPF applications that provides a simple way for windows forms applications to interact with data
+  ->Only by using this we can have the MVVM architecture implemented
+  ->It allows the flow of data between the UI elements and the data objects on the user interface
+  ->Changes in the UI automatically updates the model and any change in the model can be reflected to the corresponding UI element
+  
+Two Types of Data Binding:
+  ->One way data binding 
+  ->Two way data binding
+
+->One-way data binding copies the value from the source object and automatically updates the destination object 
+
+->Two way data binding: both will work -> from source to destination and from destination to source , both will work good
+    
+->Dependency Property:
+  ->data binding copies value from the source object to the destination object
+  ->since the destination object depends upon the source object, it is said to be a dependency property
+
+Binding Properties along with their description:
+  ->Property  : Description
+
+  ->Converter:sets the converter to be used
+  ->Element Name:Name of the element to which the binding is to be made
+  ->Fallback Value:Sets the value to use when binding cannot return a value
+  ->Mode:Sets the direction of the binding
+  ->Path:The path to the element property being used as the data source
+  ->RelativeSource:Sets the binding source by specifying an element relative to the current element
+  ->Source:The source object to use for binding.
+  ->StringFormat:Specifies the format of the string representation of a value if the element is bound to a string property
+  ->UpdateSourceTrigger:Sets the events on which binding will occur
+  ->Validation Rules:A collection of the validation rules applied against a binding
+
+
+
+Binding Modes:
+1.One Way:From source to destination
+2.TwoWay:Changes to source and destination are copied to each other,we have to use UpdateSourceTrigger
+3.OneWayToSource:reverse of one way
+4.One Time:The property is initially set, but updates to the source are not copied to the destination
+
+->UpdateSourceTrigger:
+   ->Two way data binding depends upon this property
+   ->It will depend on when to update the source
+   ->UpdateSourceTrigger=OnPropertyChanged
+
+->Controlling when binding occurs:
+   ->Default
+   ->Explicit
+   ->LostFocus
+   ->PropertyChanged
+
+
+
+
+ 
+ 

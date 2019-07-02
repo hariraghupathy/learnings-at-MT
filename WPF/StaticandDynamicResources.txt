@@ -1,0 +1,58 @@
+Static and Dynamic Resources:
+
+->Resources:
+  ->In WPF,Resources are objects that can be used anywhere in the application
+  ->Example:Styles,brushes,bitmap images etc. can be used in different places of the application
+
+->List of places where resources can be declared:
+  ->As global application scope within the app.xaml file
+  ->As window level scope within the resources property
+  ->Within the resources property of any element
+  ->Separate xaml resource file
+
+->Application level resources:
+  <Application.Resources>
+    <SolidColorBrush x:Key="textForeColorResource" Color="Blue"/>
+  </Application.Resources>
+
+->Window level resources:
+  <Window.Resources>
+    <SolidColorBrush x:Key="textForeColorResource" Color="Blue"/>
+  </Window.Resources>
+
+->Panel Level Resources:
+  <Grid.Resources>
+       <SolidColorBrush x:Key="textForeColorResource" Color="Blue"/>
+  </Grid.Resources>
+ 
+
+
+Utilizing WPF Resources:
+  ->Resources can be utilized in two different ways:
+     1.Static Resources
+     2.Dynamic Resources
+
+1.Static Resources:
+     ->Static Resources are loaded at runtime and we cannot make any changes to those resources dynamically
+2.Dynamic Resources:
+     ->Dynamic Resources are evaluated and loaded at runtime.If our code behind changes the resource,the elements referring resources as dynamic resource will also change
+
+->Which resource utilization is the best?
+  ->using static resources improves the performance of our application
+  ->when we are using Dynamic Resources,make sure that the element properties must be dependency property
+  ->This is because dependency property's will have Change Notification Support implicitly implemented,which in turn updates the UI
+
+->Example of how they are utilized:
+ ->Dynamic Resources:
+    <Window.Resources>
+        <SolidColorBrush x:Key="textForeColorResource" Color="Blue"/>
+    </Window.Resources>
+     <TextBlock Text="WelCome" FontSize="18" Grid.Row="1" Foreground="{DynamicResource ResourceKey=textForeColorResource}"/>  ->Dynamic Resource
+
+ ->Static Resource:
+    <Window.Resources>
+         <SolidColorBrush Color="Blue" x:Key="BackgroundBrush" /> 
+    </Window.Resources> 
+    <Grid>
+         <Button Background="{StaticResource BackgroundBrush}"  Height="25" Margin="120,100,90,0" Name="Button2" VerticalAlignment="Top">Button</Button>
+    </Grid> 

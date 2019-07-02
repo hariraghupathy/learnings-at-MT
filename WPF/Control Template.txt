@@ -1,0 +1,4 @@
+Control Template:
+ ->It contains the tree of elements that contain the desired look
+ ->After we define a control template, it can be assigned to any page or Control
+   by setting its template property

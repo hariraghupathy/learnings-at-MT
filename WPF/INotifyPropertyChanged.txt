@@ -1,0 +1,23 @@
+INotifyPropertyChanged: (link:https://www.c-sharpcorner.com/article/use-inotifypropertychanged-interface-in-wpf-mvvm/)
+         ->INotifyPropertyChanged is an interface member in System.ComponentModel Namespace.
+         ->This interface is used to notify the control that the property value has changed
+        
+Implementing the INotifyPropertyChanged interface:
+
+Scenario:
+  ->Consider two properties First Name and Last Name
+  ->When we update these properties programmatically,it updates the UI automatically
+
+NotifyPropertyChanged:
+  ->Create one class NotifyPropertyChanged to implement the INotifyPropertyChanged interface from System.Component Model
+  ->It should implement the IPropertyChanged event 
+  ->Then create a method to raise the property chage event to notify the UI
+  ->Now inherit the NotifyPropertyChanged class to the User class to use the members to raise property change notification
+
+->We have to use namespace for viewmodel in the windows xaml file
+
+    ->xmlns:vm="clr-namespace:NotifyCommand.ViewModel"
+
+->DataContext:
+   ->Data Context property will be assigned to the view model
+ 

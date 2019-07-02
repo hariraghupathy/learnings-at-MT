@@ -1,0 +1,17 @@
+Resource Dictionary:
+  ->To add a resource dictionary, right click on the wpf project and click add to add a resource dictionary
+  ->Declare the resource in the resource dictionary
+             <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                     <SolidColorBrush x:Key="textForeColorResource" Color="Blue"/>
+             </ResourceDictionary>
+
+Referring the resource dictionary at the application level:
+  -><Application.Resources>
+       <ResourceDictionary>
+           <ResourceDictionary.MergedDictionaries>
+              <ResourceDictionary Source="MyResourcesDictionary.xaml"/>
+           </ResourceDictionary.MergedDictionaries>
+       </ResourceDictionary>
+    </Application.Resources>
+

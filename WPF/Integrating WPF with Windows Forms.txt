@@ -1,0 +1,12 @@
+Integrating WPF with Windows Forms:
+  ->Example:In IPSDefinition we had everything in windoes forms and only part was in WPF
+   
+  ->Element Host:
+      ->So we use element host in order to render the WPF view in the Windows Forms app
+      ->Element host is similar to a button control in windows Forms
+
+Communication between WinForms and WPF:
+  ->So for an event fired in the WPF form,we have to capture it in the Windows Forms
+  ->So we need to declare an event here and manually raise it from the WPF code on the event of a particular control
+  ->In the Windows Forms,we have to capture the event in the windows forms app
+

@@ -1,0 +1,95 @@
+WMI:
+->Windows management information
+->it is an interface to the Windows Operating system settings,drivers and parameters
+->we can use to WMI to obtain information about 
+  1.drivers installed on the client machine
+  2.verify whether the system is licensed or not
+  3.check for hardware configuration and a lot more
+
+
+Getting data from WMI:
+ ->To get data from WMI, an SQL-query like syntax is used
+ ->this query is called WQL (WMI Query Language)
+ ->Just the names are different but it is still very similar to SQL
+
+WMI Test Tool:
+ ->this comes with windows which lets us test WQL queries to check their 
+   correctness and returned results
+ ->it is somewhat difficult to track wrong query results in code, so this tool can be used
+ ->type this command in the cmd to open the tool -> wbemtest
+
+What data we want?
+ ->https://docs.microsoft.com/en-us/windows/desktop/WmiSdk/wmi-classes ->refer this to obtain what kind of data we want
+ ->For Example: take the  Win32_Processor class
+   ->Querying against this will give us information about the CPU installed on a machine
+ ->If a machine runs multiple CPU's , a result will be returned for each CPU
+
+->Win32_Processor properties:
+
+AddressWidth
+Architecture
+Availability
+Caption
+ConfigManagerErrorCode
+ConfigManagerUserConfig
+CpuStatus
+CreationClassName
+CurrentClockSpeed
+CurrentVoltage
+DataWidth
+Description
+DeviceID
+ErrorCleared
+ErrorDescription
+ExtClock
+Family
+InstallDate
+L2CacheSize
+L2CacheSpeed
+L3CacheSize
+L3CacheSpeed
+LastErrorCode
+Level
+LoadPercentage
+Manufacturer
+MaxClockSpeed
+Name
+NumberOfCores
+NumberOfLogicalProcessors
+OtherFamilyDescription
+PNPDeviceID
+PowerManagementCapabilities[]
+PowerManagementSupported
+ProcessorId
+ProcessorType
+Revision
+Role
+SocketDesignation
+Status
+StatusInfo
+Stepping
+SystemCreationClassName
+SystemName
+UniqueId
+UpgradeMethod
+Version
+VoltageCaps
+
+->Implementing through code:
+ ->First add reference to 
+  1.System.Management
+  2.System.Management.Instrumentation
+
+->ManagementObjectSearcher:
+ ->It is the key element here which gets the returned properties based on the query
+
+Code:
+void GetCPUInfo()
+{
+    ManagementObjectSearcher searcher = new ManagementObjectSearcher("SELECT * FROM Win32_Processor");
+    foreach (ManagementObject obj in searcher.Get())
+    {
+        if (!(obj == null))
+            Debug.Print(obj.Properties["CpuStatus"].Value.ToString());
+    }
+}

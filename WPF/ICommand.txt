@@ -1,0 +1,13 @@
+ICommand:(https://www.codeproject.com/articles/1052346/%2fArticles%2f1052346%2fICommand-Interface-in-WPF)
+   ->To bind a command to a button, we have to implement the ICommand Interface
+   ->ICommand is composed by:
+          ->event EventHandler CanExecuteChanged;     
+          ->bool CanExecute(object parameter);     
+          ->void Execute(object parameter);  
+    ->Can Execute:
+          ->It will define whether the command can be executed or not
+          ->If it returns false, the button will be disabled
+    ->Execute:
+          ->It runs the command logic
+    ->CanExecuteChanged: 
+          ->     

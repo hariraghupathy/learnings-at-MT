@@ -1,0 +1,28 @@
+Attached Dependncy Property:
+
+Where did i use?
+->To bind the close event of the window and handle it in the view model
+
+How?
+
+->Create an interface with the following properties:
+
+Window MyWindow {get;set;}
+
+void OnClosed(object sender,EventArgs e);
+
+->Then implement the interface in the ViewModel where we want to handle the close event of the window
+
+->Create a class which contains the attached dependency property : 
+ ->propa
+ ->Let it be a boolean property
+ ->then inside PropertyMetaData ->pass the default value as false and then pass this method "OnPropertyChanged"
+   new PropertyMetadata(false,OnPropertyChanged) 
+
+->Then in the main xaml bind the dependency property as follows
+
+ VM:AutoBindEvents.IsAutoBindEvent="True"
+
+->When the boolean value is set as true, when the window closes, the OnPropertyChanged will be invoked
+
+->learn difference between normal and attached dependency property

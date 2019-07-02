@@ -1,0 +1,14 @@
+Introduction to WPF and xaml:
+
+->WPF is windows presenation foundation
+->It was brought with the introduction of the user control
+->User control is the one which is a single conrtol to which multiple controls like button,label etc. can be attached (Example: Thumbnail View)
+->So this cannot be done in Windows Forms,so this lead to the foundation of windows forms.
+
+
+Xaml:
+ ->It is simlilar to html
+ ->here we have a start and end tag for each control
+ ->each control will have its properties such as alignment,colour,events like onClick and also we can specify the data bindings
+ 
+

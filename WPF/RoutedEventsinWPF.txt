@@ -1,0 +1,51 @@
+Routed Events in WPF:
+
+->Visual Tree and Logical Tree:
+  
+->Logical Tree:(https://www.youtube.com/watch?v=L_6j4zd_ivU)
+   ->It represents the essential structure of our UI
+   ->If we have a grid that contains a button
+   ->The logical tree will be  Window->Grid->Button
+   ->Logical Tree does not show the inner contents of a tree
+   ->It illustrates only the logical situation,it does not show us the underlying controls details
+   ->so to summarize,it displays what is visible to our eyes 
+
+->Visual Tree:
+   ->It represents all of our elements in the UI which is visible to the human eye 
+   ->It can be viewed only by using special tools
+   ->Visual tree for above scenario: MainWindow->Border->Adorner Decorator->Content Presenter->Grid->Button->Chrome:Chrome Button->Content Presenter
+   ->We can view the visual tree by running the application in the debug mode
+   ->Go to watch tab during the debugging of the application and find the visual tree there
+   ->This displays also the inner details 
+
+
+->Routed Event:(https://www.youtube.com/watch?v=vob1jheMWTE)
+   ->It is a type of event that can invoke handlers on multiple listeners in an element tree rather than just the object that raised the event
+   ->Like dependency property is a special type of property
+   ->Routed events are special kinds of events
+
+   ->Example:
+     ->a normal button click event will invoke the handler of only itself
+     ->whereas a routed event will invoke the handlers of the Control(Grid) that contains the button in up or down direction
+
+     ->In the given example: Button holds all the inner controls
+         ->The event for outer button corresponds to all the events of the inner controls if no events are associated with the inner controls
+         ->since ellipse is not a button and if we write an event,it wont bubble up.If it was a button it would bubble up 
+         ->If we write event for the inner button also ,and if we click the inner button,it will raise the event for both inner button and outer button
+         ->so it traverses up the hierarchy , this is known as bubbling up
+->Three main routing strategies:
+  1.Direct Event -> Normal CLR event
+  2.Bubbling Event -> travels up in visual tree hierarchy
+  3.Tunnel Event ->travels down in visual tree hierarchy
+
+
+->Why we need bubbling up events?
+  ->Suppose we have to change the title of the window as well as perform a functionality over the click of the inner button
+  ->bubbling events raise both, so we do that
+
+->Tunneling events:(preview keyword)
+  ->The difference between a bubbling and a tunneling event is that a tunelling event will always start with a preview keyword
+  ->Just like dependency properties , we create our custom routed events also
+
+So when we use?
+  ->Suppose we have an outer button and three buttons inside the outer button and we need to taka care of events,we use routed events

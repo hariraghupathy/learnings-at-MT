@@ -1,0 +1,94 @@
+Xaml Page:
+  ->WPF provides browser-style navigation in both standalone and WPF XAML browser applications
+  ->It provides navigation using the page class
+  ->we can navigate from one page to another page using HyperLink 
+
+  ->NavigationService:
+     ->Instead of using HyperLink,we can navigate from one page to another page programmatically using this
+
+  ->Journal:
+     ->WPF uses the journal to navigate to the pages from and back to them again
+
+  ->Page,HyperLink,NavigationService and the journal form the core of the navigation support offered by WPF
+
+
+Navigation in WPF applications:
+  ->Implement using the following example:
+
+Stack Panel:
+   ->Stack Panel is a simple and useful layout panel in xaml
+   ->In a stack panel , the child elements can be arranged in a single line either horizontally or vertically
+   ->The alignment is based on the orientation property
+
+Window:
+  ->Users interact with Windows Presentation Foundation (WPF) standalone applications through windows
+  ->Standalone WPF applications provide their own windows by using the Window class
+  ->Non-client area and client area
+  ->Lifetime: Opening a window,window activation , window ownership,closing a window
+
+
+xmlns:(default namespace)
+  ->xmlns is an XML,not necessarily xaml,construct which defines a namespace in which to resolve xml element names
+  ->it defines the default namespaces to be WPF essentially and all xml names are resolved as wpf elements
+      ->xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+
+xmlns:x(non-default namespace)
+  ->This defines a qualified namespace for non-default namespaces
+     ->xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+
+x:Name,Uid,FieldModifier
+
+IEnumerable:
+   ->It is an interface that defines one metod GetEnumerator
+   ->This method returns an IEnumerator interface
+   ->This allows read-only access to the collection
+   ->The collection that uses IEnumerable can be used with a for-each statement
+   ->IEnumerator:
+       ->Two methods in IEnumerator interface
+           1.MoveNext() ->returns true if next element is available and returns false if next element is not available
+           2.Reset() ->sets the enumerator to the initial position which is before the first element in the collection
+   ->The IEnumarable can be of any type Example : IEnumerable<XElement>
+
+Other Properties:
+1.Content
+2.Height
+3.Width
+4.Margin
+5.Padding
+6.MarkupExtensions: (System.Windows.Markup)
+   ->Implementation: (link:https://www.c-sharpcorner.com/uploadfile/mamta_m/creating-a-custom-markup-extension-in-wpf/)
+        ->Create a WPF application 
+        ->Add an xml file 
+        ->Add a class CustomXMLExtension to the project
+        ->Inherit the MarkupExtension class and implement its provideValue member
+
+   ->ProvideValue(IServiceProvider serviceProvider)
+          ->This method returns an object
+          ->this method will call the Parse method written by the user to read and parse the xml elements and display it in a ListView for example
+
+   
+->Now in the MainWindow.xaml:
+  ->Write the following
+  ->Declare a listBox
+  ->It would have the property as ItemsSource
+  ->Inside this we have to use local since it is going to access a local resource
+  ->Give the class name which parses the xml by getting the input of the source and the path
+  ->in the Source property , give the name of the XML file
+  ->in the path property , give the value from each row of the xml ->Example: Path=/Book/Title
+
+->The xaml would look like the following:
+
+<Window x:Class="WPFXMLBinding.MainWindow"
+xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+Title="MainWindow" Height="350" Width="525"
+xmlns:local="clr-namespace:WPFXMLBinding">
+<Grid x:Name="LayoutRoot" Background="White">
+<ListBox ItemsSource="{local:CustomXMLExtension Source=Books.xml, Path=/Book/Title}" Height="200"
+Width="200" Background="LightSalmon">
+</ListBox>
+</Grid>
+</Window>
+
+->So the file will be parsed and the result will be displayed in the listBox
+

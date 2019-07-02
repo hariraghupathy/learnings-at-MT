@@ -1,0 +1,22 @@
+Dependency Property: (link : https://www.youtube.com/watch?v=gurkQr80Xfo)
+  What is a dependency property:
+    ->Suppose you take a text box -> its name, width , height etc are their dependency properties
+    ->They are on top of a normal property and they do have additional features
+    ->In a normal property, we can bind a value  
+    ->whereas in a dependency property , it can notify when there is a change in the value,we can set default values, we can do some validations on it
+    ->It is a way of binding
+
+Creating a dependency property:
+   ->prop is used to create a normal property
+   ->propdp is used to create a dependency property
+   ->after typing propdp we have to tab twice to insert the dependency property
+  
+
+Register Method Parameters:
+   ->First is the property name
+   ->second is the type of parameter
+   ->third parameter corresponds to which class it belongs ->so it is userControl1
+
+->Why it is used:
+   ->Like Name,width,height, the one which we create is also a dependency property
+   

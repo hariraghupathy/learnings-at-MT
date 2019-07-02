@@ -1,0 +1,63 @@
+Templates:
+1.Control Template
+2.Item Template 
+3.Data Template
+
+1.Control Template:
+ ->It defines the apperance of a control
+ ->We can change or define a new look and appearance of a control by simply changing the 
+   Control Template of a control
+ ->They are more useful when we write our own controls
+ ->For example:
+     ->A wpf button control has a recatangular layout, but using Control Templates, you can build 
+       a custom button that has a circular layout and make it change colour on actions over the button
+ ->The code snippet creates a control template and adds a grid as contents of the control template.
+ ->Code:
+
+   <Grid.Resources>
+            <ControlTemplate x:Key="RoundButtonTemplate">
+                <Grid>
+                    <Ellipse Width="100" Height="100" Name="ButtonBorder"    
+                  Fill="OrangeRed"  />
+                    <Ellipse Width="80" Height="80" Fill="Orange"  />
+                </Grid>
+            </ControlTemplate>
+   </Grid.Resources>
+
+ ->While defining a button:
+   
+  <Button Template="{StaticResource RoundButtonTemplate}" >OK</Button>  
+
+ ->To restrict the control template only for specific controls: (for example only for buttons)
+   ->specify TargetType while defining the control template
+   -><ControlTemplate x:Key="RoundButtonTemplate" TargetType="{x:Type Button}" />
+ 
+ ->ControlTemplate.Triggers:
+   ->use this to trigger events over the control templates
+
+2.Data Template:
+ ->It is a bit of XAML that defines how bound data is displayed
+ ->It is basically, used to specify the appearance of data displayed by a control not the appearance 
+   of the control itself
+ ->Therefore Data templates can be applied to ContentControls or ItemsControl
+ ->ContentControls:
+    ->Only one content can be set for these controls, example : Button
+ ->ItemsControl:
+    ->More than one content can be set -> Example:ListBox
+ ->Example:
+    ->Suppose we want a listbox with each item containing a check box, an image as well as text
+    ->in this case data template will be useful
+
+ ->Code snippet:
+    <Grid>
+        <ComboBox  Name="cbx1"  ItemsSource="{Binding ListToBind}" >
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Width="20" Height="20" Margin="5" Source="{Binding Image}"/>
+                        <TextBlock Margin="5" Text="{Binding country}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+    </Grid>
