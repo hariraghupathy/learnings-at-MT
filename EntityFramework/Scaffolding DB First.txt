@@ -7,4 +7,4 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer.Design" Version="1.1.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.2.0">
 ->Then execute the below command , models will be created
-dotnet ef dbcontext scaffold "Server=IN11W-VR-1\TEST;Database=testdatabase;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -o Models
+dotnet ef dbcontext scaffold "Server=TEST;Database=testdatabase;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -o Models
