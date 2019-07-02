@@ -1,0 +1,14 @@
+Thread join:
+  
+Example:
+   ->When we have a list of operations for example a list of mathematical operations 
+   ->when a group of threads are dependent on each other , we start the base thread and join it and repeat this for all the threads
+   ->so it will execute in order
+   ->so what we do is club all the basic operations to a list of threads -> List<thread>
+   ->so in a for loop we will join all the threads in the list:
+        foreach (Thread thread in workerThreads) 
+        {
+              thread.Join();
+        } 
+   ->all the dependent threads are put to a list and joined such that each thread starts and completes execution in a sequential order
+   ->then finally we will sum the results from the individual threads and we will display the results

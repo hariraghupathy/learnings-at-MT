@@ -1,0 +1,17 @@
+Pass Arguments By Value and By Reference:
+->Arguments can be passed by two ways
+ 1.Pass By Value
+ 2.Pass By Reference
+
+1.Pass By Value:
+  ->Most probably we use this method.What the compiler does is it sends the copy of the value instead of sending the 
+    value as such.Any modification to the copied value will not affect the original value.
+
+2.Pass By Reference:
+  ->Here the address of the variable is passed, and hence any modification to this value will affect the original value also
+  ->In c#,we use the "ref" keyword to pass the value by reference
+
+->Out parameter:
+  ->in order to assign a value to the called method
+  ->the value of the output parameter will be passed by reference
+

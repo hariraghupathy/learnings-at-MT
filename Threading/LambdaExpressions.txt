@@ -1,0 +1,6 @@
+Lambda Expressions:
+ ->Lambda Expressions are how anonymous methods are created
+ ->They are anonymous functions which contain expressions or sequence of operators
+ ->All lambda expressions use the lambda operator => -> which is termed as "goes to" or "becomes"
+ ->Example:
+    -> lstFields.Where(x=>x.DefId==Globals._iSelectedDefID).Select(x=>x.FieldId).FirstOrDefault();

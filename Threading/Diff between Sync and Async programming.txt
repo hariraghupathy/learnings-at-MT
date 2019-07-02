@@ -1,0 +1,29 @@
+Difference between synchronous and asynchronous programming:
+
+1.Synchronous:
+ ->// Example 1 - Synchronous (blocks)
+   var result = database.query("SELECT * FROM hugetable");
+   console.log("Query finished");
+   console.log("Next line");
+
+The console.log will wait for the first line to complete execution
+
+2.Asynchronous:
+ ->// Example 2 - Asynchronous (doesn't block) 
+
+database.query("SELECT * FROM hugetable", function(result) {
+    console.log("Query finished");
+});
+console.log("Next line");
+
+op:1.QueryFinished
+     NextLine
+
+op:2.NextLine
+     QueryFinished
+
+So long running operations are run inside the async methods
+
+When await is used:
+  ->If we define the method as an async method,it should contain the async keyword otherwise the compiler would show an error
+  ->It is used to suspend the execution of the method until the awaited task is completed

@@ -1,0 +1,181 @@
+Delegates and events:
+
+Delegates:
+   ->It is an abstraction of one or more function pointers
+   ->.NET has implemented the concept of function pointers in the form of delegates
+   ->With delegates,we can treat functions as data
+   ->Delegates allows functions to be passed as parameters,returned from a function and to be stored in arrays
+   ->Characteristics of Delegate:
+        ->derived from the System.MulticastDelegate class
+        ->They have a signature and a return type
+        ->Functions that are added to the delegate must be compatible with this signature
+        ->Delegates can point to either static or instance methods
+        ->Once a delegate object is created , it may dynamically invoke the methods it points to at runtime
+        ->Delegates can call methods synchronously and asynchronously
+
+Callbacks:
+   ->Delegates are powerful for implementing callbacks
+   ->What is a callback function:
+           ->It is a function which is passed as an argument to another function which is exeuted 
+             after the parent function completes execution.
+           ->Callback functions are called when a particular task is completed 
+           ->To create a callback , we have to store the address of the function inside a variable
+           
+
+Important parts of a delegate:
+  ->Parameters of the method
+  ->address of the method it calls
+  ->return type of the method it calls
+
+Example:
+  ->There are cases in which a method may simply invoke another method
+  ->We do not know at compile time which the second method is 
+  ->i.e we know the name of the second method only at runtime
+  ->in these cases delegates are used
+
+Defining a delegate:
+  ->A Delegate can be defined as a delegate type
+  ->Its definition must be similar to the function signature
+  ->A delegate can be defined in a namespace and within a class
+  ->prototype -> accessibility delegate return type delegatename(parameterlist);
+  Example:
+  namespace Delegates
+  {
+    public delegate int Operation(int x,int y);
+    class Program
+    {
+        //method to be passed to the delegate
+        //it has same signature as compared to the delegate
+        static int Addition(int x,int y)
+        {
+            return x + y;
+        }
+        static void Main(string[] args)
+        {
+            //delegate instantiation
+            Operation obj = new Operation(Program.Addition);
+            Console.WriteLine(obj(1, 2).ToString());
+            Console.ReadLine();
+        }
+    }
+  }
+  ->the above is a basic example where only one function is passed as delegate
+
+->Array of delegates:
+   ->Here multiple methods are called from within the delegate
+   
+   Example: 
+
+namespace Delegates
+{
+    public delegate void Operation(int x,int y);
+    class Program
+    {
+        //method to be passed to the delegate
+        //it has same signature as compared to the delegate
+        static void Addition(int x,int y)
+        {
+            Console.WriteLine("Addition : " + (x + y).ToString());
+        }
+        static void Multiplication(int x,int y)
+        {
+            Console.WriteLine("Multiplication : " + (x * y).ToString());
+        }
+        static void Main(string[] args)
+        {
+            //delegate instantiation
+            Operation[] obj = { new Operation(Program.Addition), new Operation(Program.Multiplication)};
+            for (int i = 0; i < obj.Length;i++)
+            {
+                obj[i](2, 5);
+            }
+            Console.ReadLine();
+        }
+    }
+}
+
+
+
+->MultiCast Delegate:
+   ->So far we have seen only one object of a delegate calling a method of its same signature
+   ->Now with the same object , the delegate calls both the methods
+
+   ->In the above code , put this inside the main method:
+            Operation obj = Program.Addition;
+            obj += Program.Multiplication;
+            obj(2, 5);
+            Console.ReadLine();
+   ->First the add method is executed followed by the multiplication method
+
+->Removing the delegate object from an invocation list:
+   DelOp obj = Operation.Add;  
+   obj -= Operation.Square; 
+   ->now only the add method will be executed
+
+->GetInvocationList()
+  ->it returns an array of delegate objects and we can call using this .
+  ->This is to provide exception handling
+
+->Anonymous Delegates:
+    class Program  
+    {  
+        // Delegate Definition  
+        delegate void operation();  
+  
+        static void Main(string[] args)  
+        {  
+            // Delegate instantiation  
+            operation obj = delegate  
+            {  
+                Console.WriteLine("Anonymous method");  
+            };  
+            obj();  
+   
+            Console.ReadLine();  
+        }  
+    }  
+
+
+
+
+
+
+
+
+Events:
+  ->Event handlers can't return a value,they are always void
+  ->Example:
+  namespace EventHandler
+  {
+    public delegate void DelEventHandler();
+    class Program
+    {
+        public static event DelEventHandler add;
+        static void Main(string[] args)
+        {
+            add += new DelEventHandler(USA);
+            add += new DelEventHandler(Canada);
+            add += new DelEventHandler(Germany);
+            add.Invoke();
+            Console.ReadLine();
+        }
+        static void USA()
+        {
+            Console.WriteLine("USA");
+        }
+
+        static void Canada()
+        {
+            Console.WriteLine("Canada");
+        }
+
+        static void Germany()
+        {
+            Console.WriteLine("Germany");
+        }
+    }
+  }
+
+Difference between Delegates and Events:
+  ->Delegates may or may not have a return type
+  ->Events will never have a return type , also note that events can accept parameters as input

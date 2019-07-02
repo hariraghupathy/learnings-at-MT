@@ -1,0 +1,175 @@
+Boxing:
+  int a=20;
+  object b=a;//boxing
+
+UnBoxing:
+  int c=(int)b;
+
+
+Generics:
+  ->Generics introduce to the .NET framework the concept of type parameters
+  ->They are mostly used to create collection classes
+
+Example:
+
+namespace Generics
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            List<int> lstInteger = new List<int>();
+            for (int i = 1; i <= 4; i++)
+                lstInteger.Add(i);
+            List<string> lstString = new List<string>();
+            lstString.Add("string1");
+            lstString.Add("string2");
+            lstString.Add("string3");
+            //now create a close to store the collection of objects     
+            //the created class is given below
+
+            //Now to store the lstInteger items to this class, we use the code below
+
+            ClassToStoreCollection objintCollection = new ClassToStoreCollection();
+            objintCollection.Add(1);
+            objintCollection.Add(2);
+            objintCollection.Add(3);
+            objintCollection.Add(4);
+
+            //Note:since the Add method accepts an object type, we can also add other datatypes to this object array
+
+            objintCollection.Add("string1");
+
+
+            //Now to store the lstString values to the collection store class
+
+            ClassToStoreCollection objStringCollection = new ClassToStoreCollection();
+            objStringCollection.Add("string2");
+            objStringCollection.Add("string3");
+            objStringCollection.Add("string4");
+
+            //Note:since the Add method accepts an object type, we can also add other datatypes to this object array
+            objStringCollection.Add("5");
+        }
+    }
+
+    public class ClassToStoreCollection
+    {
+        //create an object array
+        object[] objArray = new object[50];
+        int iNumberofItems = 0;
+        public void Add(object item)
+        {
+            if(iNumberofItems+1<50)
+            {
+                objArray[iNumberofItems] = item;
+                iNumberofItems++;
+            }  
+        }
+    }
+}
+
+
+Type-Safety:
+  ->In the above code we can add non integer values to the collection storing the integer list
+  ->This shows that the collection is not type-safe
+
+Type Casting:
+  ->To retreive a value from any of these collections,type casting has to be done
+  ->Example:
+     Int value1 = (int)objintcollection[0];  (or)  string str1 = (string)objstringcollection[0]; 
+  ->This becomes a problem because it reduces performance
+
+InvalidCastExceptions:
+  ->Also we will get invalid cast exceptions
+  ->For example: when we try to cast a string to an integer
+
+
+->To avoid the above problems, we are using Generic Classes
+
+->Generic Classes:
+  ->They store a collection of values of a given type
+  ->Example:
+
+
+->namespace Generics
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            List<int> lstInteger = new List<int>();
+            for (int i = 1; i <= 4; i++)
+                lstInteger.Add(i);
+            List<string> lstString = new List<string>();
+            lstString.Add("string1");
+            lstString.Add("string2");
+            lstString.Add("string3");
+            //now create a close to store the collection of objects     
+            //the created class is Generic
+
+
+            //Now since we have used Generics
+            //we can create objects with respect to their types
+
+            Generic<int> objInt = new Generic<int>();
+            objInt.Add(1);
+            objInt.Add(2);
+            objInt.Add(3);
+
+
+            Generic<string> objString = new Generic<string>();
+            objString.Add("string1");
+            objString.Add("string2");
+            objString.Add("string3");
+        }
+    }
+
+    public class Generic<T>
+    {
+        T[] items = new T[50];
+        int iNumberofItems = 0;
+        public void Add(T item)
+        {
+            if(iNumberofItems+1<50)
+            {
+                items[iNumberofItems] = item;
+                iNumberofItems++;
+            }
+        }
+
+        //Note: This class is similar to the object collection store class
+        //Instead of having a collection of objects,we have a collection of generic types T
+
+    }
+}
+
+
+
+->Type Casting:
+   ->When we use Generics,type casting is also not required while fetching these objects
+
+->Generic Methods:
+   ->Methods can also be defined Generic with Generic Type Parameters
+   ->public void doAction<T>(T argument) 
+     {}
+   ->The above method will be called by -> Myobject.doAction<int>(56); 
+   ->It can also have T as return type  -> public T doAction<T>(T argument) {}
+   ->public T GetSum<T>(T arg1, T arg2) 
+     { 
+        return arg1+arg2; 
+     }  ->This will not compile.It will throw error
+   ->So we declare an abstract Generic class and declare the Generic method as abstract
+     public abstract class MyClassA<T> 
+     { 
+       public abstract T GetDifference (T arg1, T arg2); 
+     }
+   ->we can inherit this Generic class and use
+     public class MyClassB: MyClassA<int> //integer type specified 
+     { 
+        public int GetDifference(int arg1, int arg2)
+        { 
+           return arg1 - arg2; 
+        } 
+     } 
+       

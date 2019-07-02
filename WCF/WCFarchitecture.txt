@@ -1,0 +1,91 @@
+WCF architecture:
+   ->Layered architecture that supports a lot of distributed application development
+   ->There are 4 major layers that provide the developers a new service-oriented programming model
+
+1.Contracts
+2.Service RunTime
+3.Messaging
+4.Activation and Hosting
+
+Contracts:
+  ->WCF contracts are much like contracts that you and i would sign in real life
+  ->This contract or WCF information contains information such as what a service does and the type of information that it will make available
+  ->It is a collection of operations that specifies what the endpoint communicates to the outside world
+  ->Four types of contracts:
+        1.Data Contract: 
+              ->It will stipulate or demand or specify the type of data that the WCF service will exchange
+        2.Message Contract:
+              ->It controls the SOAP messages sent and received by the service
+        3.Service Contract:
+              ->It inforrms the clients what the endpoint will offer to the outside world
+        4.Operation Contract:
+              ->Includes the individual API's of the WCF service
+        5.Policy and Binding Contracts:
+              ->It specifies important information such as security,protocol and other information
+
+Service Runtime:
+   ->This manages the behaviours of the service that occurs during service operation
+   ->Various behaviours managed by the service runtime layer:
+        1.Throttling Behaviour:
+             ->It defines the number of processed images
+        2.Error Behaviour:
+             ->It specifies what action should be taken if an error occurs during the service runtime
+        3.MetaData Behaviour:
+             ->Controls or not whether the metadata has to be exposed to the outside world(wsdl for clients)
+        4.Instance Behaviour:
+             ->It drives how many instances of the service will be available to process messages
+        5.Message Inspection:
+             ->Gives the service the ability to inspect all parts of the message
+        6.Transaction Behaviour:
+             ->It provides the ability to rollback the transaction if a process fails during the service runtime
+        7.Dispatch Behaviour:
+             ->Service determines how the message should be handled and processed
+        8.Concurrency Behaviour:
+             ->It defines how each service or instance of the service handles threading
+        9.Parameter Filtering:
+             ->Filters the message headers and executes preset actions based on the filter of the message headers
+
+
+Messaging:
+    ->This layer defines what formats and data exchange patterns can be used during service communication
+    ->List of channels and components that the messaging leayer is composed of :
+        1.WS Security Channel:
+             ->It implements the WS-Security specification,which enables message security
+        2.WS Reliable Message Channel:
+             ->It provides guarenteed message delivery
+        3.Encoders:
+             ->It lets us pick a number of encodings for the message
+        4.HTTP Channel:
+             ->It tells the service that the message delivery will take place via the HTTP protocol
+        5.TCP Channel:
+             ->It tells the service that the message delivery will take place via the TCP protocol
+        6.Transaction Flow Channel:
+             ->It governs transacted message patterns
+        7.NamedPipe Channel:
+             ->It enables inter-process communication
+        8.MSMQ channel:
+             ->It helps to use MSMQ (Microsoft Message Queuing)
+
+
+Activation and Hosting:
+      ->These provide various options in which a service can be started as well as hosted
+      ->Services can be hosted within the context of another application or can be self-hosted
+      ->The hosting and activation points provided by this layer are:
+         1.Windows Activation Service:
+               ->It enables WCF applications to be automatically started when running on a computer that is running windows activation service
+         2..EXE:
+               ->WCF allows services to be run as executables
+         3.Windows Services:
+               ->WCF allows services to be hosted through windows services
+         4.COM+:
+               ->WCF allows services to be run as COM+ application
+
+
+Summary:
+      ->So WCF architecture mainly has four layers:
+            1.Contracts
+            2.Service RunTime
+            3.Messaging
+            4.Activation and Hosting
+
+ 

@@ -1,0 +1,31 @@
+WebServices:
+  ->Why do we need webservices?
+      ->Web Services allow us to expose our functionalities over the network such that 
+        other systems including our client systems can gain access of our functionalities
+      ->Example: ExtractKeyFields API
+
+  ->Formats used for communication:
+      ->SOAP  
+      ->REST
+
+  ->SOAP:
+      ->XML based communication
+      ->supports protocols other than HTTP
+      ->This can be used when we have multiple clients and when they have different protocols for communication
+      ->more secure
+ 
+  ->REST:(caching)
+      ->communication is by json
+      ->most browsers use REST
+      ->It supports only HTTP protocol
+      ->This is used when the number of hits to a URL is very high
+      ->it does caching
+
+  ->WCF:
+     ->It follows SOAP
+     ->It can be made REST also
+     ->Runs only in Windows(.NET Framework)
+  ->WebAPI:
+     ->It follows REST
+     ->It can be made both SOAP and REST
+     ->Runs in both Windows and Linux(.NET core)

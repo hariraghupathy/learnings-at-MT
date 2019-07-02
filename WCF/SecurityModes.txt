@@ -1,0 +1,47 @@
+security modes in WCF:
+
+1.Message Security Mode:
+   ->In this mode,the message will be encrypted and passed over a non-secure channel so that no one can read it
+
+2.Transport Security Mode:
+   ->the communication channel will be encrypted and also provides integrity,privacy and so on
+
+3.Mixed Transfer Security Mode:
+   ->This mode provides transport security for message privacy and it uses message security for secure credentials
+
+4.Both security mode:
+   ->This mode uses both message and transport security.So the message will be encrypted using message 
+     security and will be passed over a secure channel using transport security.
+   ->It provides more security than others, but it degrades performance
+
+
+Authentications in WCF:
+  
+    ->In wcf , authentication process verifies the caller and checks whether they are authorized
+    or not to get access to the service
+   
+1.Windows Authentication:
+     ->In this mode,the caller must provide his/her Windows credential for authentication
+
+2.UserName/Password:
+     ->In this mode the caller must provide username and password for authentication
+
+3.X509 certificates:
+     ->In this mode,the caller must send certificate information and the service will 
+       check whether the service is valid or not
+
+4.Custom Mechanism:
+     ->In this mode, the user must use their own protocol and credentials type instead
+     of built-in authentication
+
+5.Issue Token:
+     ->In this mode,both the caller and the service rely on a secure token service to issue the client 
+     a token for service identity.It uses a windows card space
+
+6.No authentication:
+     ->WCF does not implement any authentication in this mode
+
+
+wshttpbinding and nettcpbinding provides windows authentication
+
+

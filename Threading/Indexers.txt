@@ -1,0 +1,77 @@
+Indexers:
+  ->They are used to treat theobject of a class as an array
+  ->They are known as smart arrays in c#
+  ->They are not an essential part of object-orineted programming
+  ->an indexer,also called as an indexed property,is a class property that allows you to access a member variables of a class 
+    using the features of an array
+
+->Creating an indexer:
+  ->  <modifier> <return type> this [argument list]
+      {
+        get 
+        {
+           //you get block code
+        }
+        set
+        {
+           //you set block code 
+        }
+      }
+
+  -><modifier> -> can be private, public, protected or internal
+  -><return type> -> can be any valid C# types
+  ->this -> this is a special keyword in C# to indicate the object of the current class
+  ->[argument list] -> The formal-argument-list specifies the parameters of the indexer
+
+->Points to remember while creating the indexers:
+  ->Indexers are always created with this keyword
+  ->ref and out parameter modifiers are not permitted in indexer
+  ->Indexer is an instance member so can't be static but property can be static
+  ->Indexers are used on group of elements
+  ->Indexer is identified by its signature where as a property is identified it's name
+  ->Indexers are accessed using indexes where as properties are accessed by names
+  ->Indexer can be overloaded
+
+->Example:
+
+->namespace Indexers
+{
+    class Program
+    {
+        //create an indexer class
+        class IndexerClass
+        {
+            private string[] names = new string[10];
+            public string this [int i]
+            {
+                get
+                {
+                    return names[i];
+                }
+                set
+                {
+                    names[i] = value;
+                }
+            }
+        }
+        static void Main(string[] args)
+        {
+            IndexerClass Team = new IndexerClass();
+            Team[0] = "A";
+            Team[1] = "B";
+            Team[2] = "C";
+            Team[3] = "D";
+            Team[4] = "E";
+            Team[5] = "F";
+            Team[6] = "G";
+            Team[7] = "H";
+            Team[8] = "I";
+            Team[9] = "J";
+            for(int i=0;i<10;i++)
+            {
+                Console.WriteLine(Team[i]);
+            }
+            Console.ReadKey();
+        }
+    }
+}

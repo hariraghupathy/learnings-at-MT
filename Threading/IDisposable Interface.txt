@@ -1,0 +1,108 @@
+Destructors:
+  ->It is a class member that destructs the instances that are no longer needed
+  ->It is called by the .NET garbage collector,we cannot manually invoke or control it
+  ->we can't declare a destructor as static
+  ->access modifier should not be used before the destructor
+  ->Parameters and return types are also not allowed in a destructor
+  ->can be declared only inside a class and not a struct
+->Order of calling Destructors:
+  ->Unlike constructors,the destructor of the child class is called before calling the destructor of the parent class
+->Dispose()
+  ->The Dispose() method can be called directly just like any other method. 
+    Dispose() method contains code to dispose of the managed or unmanaged resources accessed by the instance or object.
+->Finalize
+  ->Finalize method can be directly called using <objectname>.Finalize(); syntax. 
+    Finalize method clean the memory used by the class.
+
+
+IDisposable:
+   ->IDisposable is an interface that contains a single method Dispose()
+   ->This Dispose() method is used for releasing unmanaged resources like files,streams,database connections and so on.
+   ->This method is used when we need to clean up a disposable object and release unmanaged resources that this disposable object holds
+   ->The garbage collector doesn't know how to call the DeleteHandle() on a variable of type IntPtr
+   ->Unmanaged resources:
+      ->When we allocate the memory using the AllocHGlobal in the unmanaged memory,it is an unmanaged resource
+           Marshal.AllocHGlobal() 
+      ->We have to free it using the Marshal.FreeHGlobal() to release this memory
+
+   ->Implementation:
+      ->The base class should inherit the IDisposable interface
+      ->This implements the dispose method
+
+      // Implement IDisposable.
+        // Do not make this method virtual.
+        // A derived class should not be able to override this method.
+        public void Dispose()
+        {
+            Dispose(true);
+            // This object will be cleaned up by the Dispose method.
+            // Therefore, you should call GC.SupressFinalize to
+            // take this object off the finalization queue
+            // and prevent finalization code for this object
+            // from executing a second time.
+            GC.SuppressFinalize(this);
+        }
+
+
+
+->Destructor:
+    ->Having a destructor in the class will specify the garbage collector to perform garbage collection specified in the way
+      mentioned in the Destructor
+    ->we cannot explicitly call the destructor by means of instances
+    ->It executes itself at last after the class operations are completed
+
+->Dispose:
+    ->Dispose method of the IDisposable interface enables the user to control the garbage collection
+
+->Finalize:
+    ->Finalize method frees the resources used by the class but not the object itself
+
+
+Example:
+   ->Suppose we use an SQLDataAdapter object
+   ->It will have Dispose method to release the unmanaged resources
+   ->Similarly if our class needs a Dispose method to be called we have to implement the IDisposable interface
+
+->Why we are using finalize method even when we are using Dispose() method:
+   ->The Dispose method is implemented explicitly by the user 
+   ->There is a chance by the programmer to miss calling the Dispose method and the unmanaged resources are not released
+   ->So the finalize method should be called for a safer side to prevent memory leak
+   ->If the Dispose method is not called by the user for any reason,then the garbage collector will call the Destrucor(Finalize method)
+   ->When the garbage collector calls the finalize method is not determined
+   ->The garbage collector can call it any time it requires(when the program exits, when the program requires more memory and so on)
+
+->So when we have the Dispose method it is better to have a destrcutor
+
+->GC.SuppressFinalize:
+    ->GC.SuppressFinalize is called to prevent the garbage collector to run the finalizer
+    ->So when the Dispose method is called, the finalizer need not be called
+    ->That is why we use GC.SuppressFinalize
+
+->Case where Dispose() method is automatically called:(using keyword)
+    ->when we create an object inside the "using" scope,the Dispose method is automatically called
+  
+
+->Full code to understand:
+ 
+            public class DisposableClass:IDisposable
+            {
+                //the c# compiler converts this destructor into the finalize method
+                ~DisposableClass()
+                {
+                    Dispose(false);
+                }
+
+                public void Dispose()
+                {
+                    Dispose(true)
+                    GC.SuppressFinalize(this);
+                }
+                protected virtual void Dispose(bool bDispose)
+                {
+                   if(bDispose) 
+                   {
+                      //clean the managed resources
+                   }
+                   //clean up unmanaged resources
+                }      
+            }

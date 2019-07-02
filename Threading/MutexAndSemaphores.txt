@@ -1,0 +1,30 @@
+Mutex and Semaphores:
+
+1.Mutex:
+    ->Mutex is a lock which can be used for thread synchronization
+    ->Example: -> Standalone applications need only one instance
+               -> So if a standalone application is already running,we need to restrict the user from opening the application again
+               -> So the critical part of code should contain the following : 
+                 ->At the start -> Mutex.WaitOne();
+                 ->At the end -> Mutex.ReleaseMutex();
+
+2.Semaphores: 
+    ->It is a variable or an abstract data type that can be used to control access to a shared resource
+    ->Example: Producer - Consumer problem:
+            ->Consider a shared queue where the producer will produce and fill the queue and start again
+            ->The consumer will consume from the queue and remove the resource from the queue
+            ->Problem is produce won't try to fill the queue if the queue is full
+            ->Also the consumer won't try to empty the queue if the queue is empty
+            ->Solution : It is to make the producer sleep if the queue is full and when the consumer empties or removes a resource 
+                                         it indicates or notifies the producer to produce and fill the queue again.This is vice versa and applies for the consumer also
+            ->An inadequate solution : An inadequate solution may occur where both the producer and the consumer may be awakened
+            ->Consider two variable : 1.fillcount 2.empty count
+                                    ->fill count : it is the number of filled resources in the queue
+                                    ->empty count : it is the number of spaces in the queue
+                                    ->what we do is increment the fillcount and decrement the empty count when a new resource is filled into the queue
+                                    ->when the empty count is less than zero , the producer is made to sleep and no production happens
+                                    ->and when the empty count is grater than zero the producer is notified to start production
+
+
+ 
+    

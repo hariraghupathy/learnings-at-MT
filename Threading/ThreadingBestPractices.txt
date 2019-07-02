@@ -1,0 +1,3 @@
+Threading Best Practices:
+   ->Best practice is to avoid deadlock and racecondition
+   ->For Example:Use Interlocked.Increment to increment the value of a variable inside a lock

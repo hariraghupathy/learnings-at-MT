@@ -1,0 +1,21 @@
+Parallel programming:
+    ->multiple CPU cores help in executing multiple threads simultaneously
+    ->To take advantage of the hardware, we can parallelize the code to distribute work across multiple processors
+    ->Instead of a normal forloop we can use Parallel.ForEach
+    ->The primary aim is to utilize the maximum resources of the CPU
+  
+->Task Parallel Library: (TPL)
+    ->Includes parallel versions of for and foreach loop
+    ->It is much faster than the traditional for loop
+    ->normal for :  
+            for (int i=0;i<strArray.Length;i++)
+            {
+                lstNormal.Add(strArray[i]);
+            }
+    ->TPL foreach :
+             Parallel.ForEach(strArray, x =>
+             {
+                 lstNewList.Add(x);
+             });
+    ->In the above case this should not be used but for larger functionalities like downloading an image TPL can be used
+

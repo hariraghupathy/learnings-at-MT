@@ -1,0 +1,108 @@
+Whenever a user installs a software program/application, a hardware or a device driver 
+for a newly connected hardware in a Windows based computer system, the initial configuration 
+settings of these are stored as keys and values in a system defined, central hierarchical 
+database repository called Windows Registry. During the usage of the software or the hardware, 
+the changes made to these configurations are updated in the registry. Also, the changes made 
+to Control Panel settings, file associations, Windows components and so on, during the use of
+ the computer, are updated in the registry.
+
+keys:
+usbSTOR -> for storage devices
+usbehci -> HCI devices
+
+HKEY_LOCAL_MACHINE\HARDWARE\DEVICEMAP\SERIALCOMM
+
+Computer\HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Enum\USB\VID_05AC&PID_12A8&MI_00\6&22a3b96c&0&0000
+
+Triggering an event when a usb device is plugged in:
+
+1.ManagementEventWatcher -> it helps in triggering notifications when the event query is fired
+
+
+
+
+private static void DeviceInsertedEvent(object sender, EventArrivedEventArgs e)
+{
+
+ManagementBaseObject instance = (ManagementBaseObject)e.NewEvent["TargetInstance"];
+foreach (var property in instance.Properties)
+{
+Console.WriteLine(property.Name + " = " + property.Value);
+}
+}
+
+private static void DeviceRemovedEvent(object sender, EventArrivedEventArgs e)
+{
+ManagementBaseObject instance = (ManagementBaseObject)e.NewEvent["TargetInstance"];
+foreach (var property in instance.Properties)
+{
+Console.WriteLine(property.Name + " = " + property.Value);
+}
+}
+
+public static void backgroundWorker1_DoWork()
+{
+while (true)
+{
+WqlEventQuery insertQuery = new WqlEventQuery("SELECT * FROM __InstanceCreationEvent WITHIN 2 WHERE TargetInstance ISA 'Win32_USBHub'");
+
+ManagementEventWatcher insertWatcher = new ManagementEventWatcher(insertQuery);
+insertWatcher.EventArrived += new EventArrivedEventHandler(DeviceInsertedEvent);
+insertWatcher.Start();
+
+WqlEventQuery removeQuery = new WqlEventQuery("SELECT * FROM __InstanceDeletionEvent WITHIN 2 WHERE TargetInstance ISA 'Win32_USBHub'");
+ManagementEventWatcher removeWatcher = new ManagementEventWatcher(removeQuery);
+removeWatcher.EventArrived += new EventArrivedEventHandler(DeviceRemovedEvent);
+removeWatcher.Start();
+
+// Do something while waiting for events
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+    <system.serviceModel>
+        <behaviors>
+            <serviceBehaviors>
+                <behavior name="">
+                    <serviceMetadata httpGetEnabled="true" httpsGetEnabled="true" />
+                    <serviceDebug includeExceptionDetailInFaults="false" />
+                </behavior>
+            </serviceBehaviors>
+        </behaviors>
+        <services>
+            <service name="WebService.WebService">
+                <endpoint address="" binding="basicHttpBinding" contract="WebService.IWebService">
+                    <identity>
+                        <dns value="localhost" />
+                    </identity>
+                </endpoint>
+                <endpoint address="mex" binding="mexHttpBinding" contract="IMetadataExchange" />
+                <host>
+                    <baseAddresses>
+                        <add baseAddress="http://localhost:8733/Design_Time_Addresses/WebService/WebService/" />
+                    </baseAddresses>
+                </host>
+            </service>
+        </services>
+    </system.serviceModel>
+</configuration>
+
+System.Threading.Thread.Sleep(2000000);
+}
+}

@@ -1,0 +1,54 @@
+Concurrent Collection:
+
+->They are also thread-safe collections
+->These collections can be accessed by multiple threads at a time, so they are called as concurrent collections
+->Even a BlockingCollection<T> is a concurrent collection
+->List of concurrent collections in c#:
+       ->ConcurrentStack<T>
+       ->ConcurrentQueue<T>
+       ->ConcurrentBag<T>
+       ->ConcurrentDictionary<TKey,T>
+       ->BlockingCollection<T>
+
+->ConcurrentStack<T>:
+      ->Thread-safe LIFO collection
+      ->Diff bw stack and concurrent stack:
+         ->stack ->not thread-safe, pop , can add and remove single item at a time,add item using push,remove item using pop method
+         ->concurrent stack ->thread-safe,trypop,can add and remove multiple items at a time,add items using pushRange,remove items using pop or poprange
+      ->Push: Add item at top of ConcurrentStack.
+      ->PushRange: Tries to add multiple items at top of ConcurrentStack.
+      ->TryPeek: Tries to return last item from ConcurrentStack.
+      ->TryPop: Tries to pop and return last item from ConcurrentStack.
+
+->ConcurrentQueue<T>:
+      ->Thread-safe FIFO collection
+      ->Enqueue: Add item to end of ConcurrentQueue.
+      ->TryDequeue: Tries to remove and return first item from ConcurrentQueue.
+      ->TryPeek: Return first item from ConcurrentQueue.
+
+->BlockingCollection<T>:
+      ->This collection is thread-safe for adding and removing data. You can set maximum upper limit to add items in this collection. 
+        Removing an item from the collection can be blocked until item becomes available.  
+      ->Add: Add item into BlockingCollection.
+      ->Take: Removes item from BlockingCollection .
+      ->TryAdd: Tries to add item into BlockingCollection.
+      ->TryTake: Tries to remove item from BlockingCollection.
+
+->ConcurrentBag<T>:
+      ->It is a thread-safe collection
+      ->It is just like a bag or heap of objects
+      ->It has no ordering
+      ->It allows duplicate items
+      ->Add: Add item into ConcurrentBag collection.
+      ->TryTake: Tries to remove and return item from ConcurrentBag.
+      ->TryPeek: Tries to return item from ConcurrentBag.
+
+->ConcurrentDictionary<TKey,T> 
+        ->Concurrent dictionary is thread-safe collection. 
+          It is used to store key-value pair in multi-threaded environment.
+        ->Add: Add item into concurrent dictionary.
+        ->Remove: Remove item from concurrent dictionary.
+        ->Update: Update existing item in concurrent dictionary.
+        ->TryUpdate: This method check whether item is exist or not before update.
+        ->AddOrUpdate: This method add item into concurrent dictionary if that object does not exist. 
+        ->GetOrAdd: This method return current value in dictionary if it exist otherwise add as new value.

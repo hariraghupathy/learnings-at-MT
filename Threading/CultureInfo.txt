@@ -1,0 +1,23 @@
+CultureInfo: (System.Globalization)
+  ->The Culture Info class holds culture-specific information such as
+    1.associated language
+    2.sub-language
+    3.country/region
+    4.calendar
+    5.cultural conventions
+
+Three groups of cultures:
+  ->invariant culture
+  ->neutral culture
+  ->specific culture
+
+Hierarchy of cultures:
+  ->The parent of a specific culture is neutral culture
+  ->The parent of a neutral culture is an invariant culture
+  ->The Parent property returns the neutral culture associated with a specific culture
+  ->if the resources for the specific culture are not available in the system, the resources for the neutral culture are used
+  ->if the resources for the neutral culture are not available, the resources embedded in the main assembly are used
+  ->The culture is a property of the executing thread
+  ->This read-only property returns Thread.CurrentCulture
+  ->Thread.CurrentThread.CurrentCulture.Name ->we can find the current culture info from this 
+

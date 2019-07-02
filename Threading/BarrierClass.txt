@@ -1,0 +1,4 @@
+Barrier Class:
+  ->It enable multiple tasks to cooperatively work on an algorithm in multiple phases
+  ->In parallel computing, barrier is a kind of synchronization method
+  ->A barrier for a group of threads means that any thread/process must stop at this point and must wait for execution until all the other threads reach this point

@@ -1,0 +1,51 @@
+Constraints:
+  ->Constraints inform the compiler about the capabilities a type argument must have
+  ->Without any constraints , the type argument can be of any type
+  ->If the client code tries to instantiate our class with a type that is not allowed,the result is a compile-time error.
+
+Why use constraints:
+  ->In order ro restrict the use of Generics to only particular dataTypes
+
+Example:
+  ->Constraints can be applied using the where keyword
+
+class MyGenericClass<T> where T: class
+{
+    private T genericMemberVariable;
+
+    public MyGenericClass(T value)
+    {
+        genericMemberVariable = value;
+    }
+
+    public T genericMethod(T genericParameter)
+    {
+        Console.WriteLine("Parameter type: {0}, value: {1}", typeof(T).ToString(),genericParameter);
+        Console.WriteLine("Return type: {0}, value: {1}", typeof(T).ToString(), genericMemberVariable);
+            
+        return genericMemberVariable;
+    }
+
+    public T genericProperty { get; set; }
+}
+
+
+
+->Now this will give a compile-time error -> MyGenericClass<int> intGenericClass = new MyGenericClass<int>(10);
+
+->So only class types or reference types can be given 
+
+->This will work good for the example : MyGenericClass<Student> strGenericClass = new MyGenericClass<Student>(new Student());
+
+->Other constraints available:
+
+->where T : class 
+  Type must be reference type. 
+->where T: struct 
+  Type must be value type. 
+->where T: new() 
+  Type must have public parameterless constructor. 
+->where T: <base class name>  
+  Type must be or derive from the specified base class 
+->where T: <interface name> 
+  Type must be or implement the specified interface.

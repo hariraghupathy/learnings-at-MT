@@ -1,0 +1,103 @@
+async and await:
+  
+Example1:
+
+class Program  
+{  
+        static void Main(string[] args)  
+        {  
+            Method1();  
+            Method2();  
+            Console.ReadKey();  
+        }  
+          
+        public static async Task Method1()  
+        {  
+            await Task.Run(() =>  
+            {  
+                for (int i = 0; i < 100; i++)  
+                {  
+                    Console.WriteLine(" Method 1");  
+                }  
+            });             
+        }  
+  
+          
+public static void Method2()  
+        {  
+            for (int i = 0; i < 25; i++)  
+            {  
+                Console.WriteLine(" Method 2");  
+            }  
+        }  
+} 
+
+->Method1 and Method2 are not dependent on each other and we are calling it from the main method
+->We can clearly say that method1 and method2 are not dependent on each other
+op:Method1 Method2 Method2 Method1 Method2 Method1 Method1 Method2 .......
+
+
+Example 2:
+
+
+class Program  
+{  
+        static void Main(string[] args)  
+        {  
+            callMethod();  
+            Console.ReadKey();  
+        }  
+  
+        public static async void callMethod()  
+        {  
+            Task<int> task = Method1();  
+            Method2();  
+            int count = await task;  
+            Method3(count);  
+        }  
+  
+        public static async Task<int> Method1()  
+        {  
+            int count = 0;  
+            await Task.Run(() =>  
+            {  
+                for (int i = 0; i < 100; i++)  
+                {  
+                    Console.WriteLine(" Method 1");  
+                    count += 1;  
+                }  
+            });  
+            return count;  
+        }  
+  
+          
+       public static void Method2()  
+        {  
+            for (int i = 0; i < 25; i++)  
+            {  
+                Console.WriteLine(" Method 2");  
+            }  
+        }  
+  
+  
+        public static void Method3(int count)  
+        {  
+            Console.WriteLine("Total count is " + count);  
+        }  
+}  
+
+->Suppose we have method3 which is dependent on method1
+->Method1 is returning an integer which is the total length
+->and we are passing a parameter as a length to method3 
+->so we are calling method one as -> Task<int> task = Method1();  
+->Then method2 is called 
+->Then to get the count -> await keyword is used ->  int count = await task;  
+->Then finally method3 is called ->  Method3(count);                   
+  
+->async keyword:
+     ->async keyword can be used as a modifier to a method or an anonymous method to tell the c# compiler 
+       that the method holds an asynchronous operation in it.
+
+->await keyword:
+     ->when the return value is from an async method, we have to use await to capture the result
+     ->otherwise it would result in an exception

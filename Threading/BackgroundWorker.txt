@@ -1,0 +1,136 @@
+Background Worker:
+   ->Comes under the System.ComponentModel
+   ->Used when we write a windows application which does heavy calculations in the background
+   ->The background Worker will take care of these heavy calculations as a separate thread,helping to prevent our UI from freezing up
+   ->It executes the process on a separate thread
+   ->Events:
+      ->DoWork()  -> It occurs when the RunWorkerAsync() is called
+      ->ProgressChanged() -> It occurs when ReportProgress() is called
+                          -> Report Progress:
+                             -> It is the percentage from 0 to 100 of which the background process that is completed
+      ->RunWorkerCompleted() -> It occurs when the background operation has completed,has been cancelled or has raised an exception
+
+   ->How to use it in code:
+        private readonly BackgroundWorker worker = new BackgroundWorker();
+        worker.DoWork += worker_DoWork;
+        worker.RunWorkerCompleted += worker_RunWorkerCompleted;
+        private void worker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            // run all background tasks here
+        }
+
+        private void worker_RunWorkerCompleted(object sender,RunWorkerCompletedEventArgs e)
+        {
+           //update ui once worker complete his work
+        }
+        worker.RunWorkerAsync();
+        ->call this whenever we need it
+
+->Code Implementation: Refer the following link : (http://james-ramsden.com/c-simple-backgroundworker-example/)
+     ->Example: Consider an application which downloads the image and pastes to the desktop 10 times
+     ->The address of the image is provided by the user in the WPF form
+     ->We have a progress bar which shows the progress of the files being downloaded
+     ->The form stays resposive the whole time and doesn't lock up while the files are being downloaded
+ 
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+using System.ComponentModel;
+using System.IO;
+
+
+namespace BackgroundworkerWPF
+{
+    /// <summary>
+    /// Interaction logic for MainWindow.xaml
+    /// </summary>
+    public partial class MainWindow : Window
+    {
+        public MainWindow()
+        {
+            InitializeComponent();
+        }
+
+        private void btnGo_Click(object sender, RoutedEventArgs e)
+        {
+            lblStatus.Content = "";
+            //First create a background worker
+            BackgroundWorker objBgWorker = new BackgroundWorker();
+            //Then set up the different events
+            objBgWorker.DoWork += Worker_DoWork;
+            objBgWorker.ProgressChanged += Worker_ProgressChanged;
+            objBgWorker.WorkerReportsProgress = true;
+            objBgWorker.RunWorkerCompleted += Worker_RunWorkerCompleted;
+
+            //This triggers the dowork event
+            //the word async means the worker itself gets its own thread
+            //we can pass any data that the worker needs or requires as input parameter
+            //here we need the URL as input parameter
+            objBgWorker.RunWorkerAsync(tbURL.Text);
+        }
+
+
+        private void Worker_DoWork(object sender,DoWorkEventArgs e)
+        {
+            //This is the most important method,this is where the actual calculations happen
+            System.Net.WebClient objWebClient = new System.Net.WebClient();
+
+            //so we are downloading the image 10 times
+            for(int i=0;i<10;i++)
+            {
+                //we pass the data to the worker using the argument property
+                //don't try to read data from the form directly
+                string strURL = (string)e.Argument;
+
+                //code to download the image
+                byte[] byteImageStram = objWebClient.DownloadData(strURL);
+                MemoryStream objMemStream = new MemoryStream(byteImageStram);
+                System.Drawing.Image objImage = System.Drawing.Image.FromStream(objMemStream);
+
+                //code to save image
+                string strFilePath = @"C:\Users\vr-1\Desktop\Hari Krishnan\Temp Files";
+                objImage.Save(strFilePath + @"\image" + i.ToString());
+
+                //now the image is saved and so we have to update the progress bar
+                //we do this by going back to the worker with a cast
+                int iProgress = (i + 1) * 10; //Between 0 - 100
+                ((BackgroundWorker)sender).ReportProgress(iProgress);
+            }
+        }
+
+        private void Worker_ProgressChanged(object sender,ProgressChangedEventArgs e)
+        {
+            //this method is called whenever we call ReportProgress()
+            //Note that the progress is not calculated automatically
+            //We need to calculate the progress ourselves inside the Worker_DoWork
+
+            lblStatus.Content += e.ProgressPercentage.ToString() + "% complete";
+            progBar.Value = e.ProgressPercentage;
+        }
+
+        private void Worker_RunWorkerCompleted(object sender,RunWorkerCompletedEventArgs e)
+        {
+            //This method is optional but very useful. 
+            //It is called once Worker_DoWork has finished.
+
+            lblStatus.Content += "All images downloaded successfully.";
+            progBar.Value = 0;
+        }
+
+    }
+}
+
+
+
+ 

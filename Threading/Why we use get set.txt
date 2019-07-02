@@ -1,0 +1,19 @@
+Why we use get/set/value?
+  ->Exposing a field as public gets risky
+  ->we don't know what will be assigned to the field
+  ->Example:
+           -> Class Program
+              {
+                int _iAge;
+                public int Age
+                {
+                   get
+                   {
+                       return _iAge;
+                   }
+                   set
+                   {
+                       _iAge=value;
+                   }
+                }
+              }

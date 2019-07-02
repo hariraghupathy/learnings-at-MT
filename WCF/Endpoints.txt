@@ -1,0 +1,8 @@
+Endpoints:
+ 
+->Each endpoint consists of four properties:
+
+An address that indicates where the endpoint can be found.
+A binding that specifies how a client can communicate with the endpoint.
+A contract that identifies the operations available.
+A set of behaviors that specify local implementation details of the endpoint. 

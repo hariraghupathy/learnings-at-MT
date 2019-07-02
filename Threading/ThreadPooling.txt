@@ -1,0 +1,74 @@
+Thread pooling:
+   ->Thread pooling is the process of creating a collection of threads during the initialization of a multithreaded application
+   ->We reuse these threads as and when required and we do not create new threads each and every time
+
+Memory:
+   ->Every process will have a fixed amount of threads depending on the amount of memory available
+
+Thread Life cycle:
+   ->Initialization on request
+   ->Memory allocation
+   ->Execution
+   ->Then garbage collection of the thread object
+
+Thread pool:
+   ->In a thread pool,instead of garbage collecting the threads which have completed executing,these threads to be garbage collected are put into a thread pool
+   ->so each and every time , new threads need not be created and hence it can be reused
+   ->ThreadPool life cycle:
+        ->Initialization on request
+        ->Memory allocation
+        ->Execution
+        ->Instead of garbage collection, it is put inside the thread pool
+   ->Advantages:
+       ->It enables less memory consumption for a large number of tasks
+
+How thread pool works:
+    ->So now for every request what happens is that it will go to the thread pool and check for free available threads and use it for executing some task
+
+
+Implementation of thread pool:
+   ->Create a console application and import the threading system namespace
+   ->create a static function run and add some code to it
+
+Thread.Sleep():
+   ->Thread.Sleep() will cause the current thread to suspend execution such that it will make the processor time available to the other threads of an application
+   ->running with thread pool will save memory and reduce the time taken to execute 
+   ->Sample code:
+    
+         static void Main(string[] args)
+        {
+            RunWithThreadPool(); 
+            RunWithoutThreadPool();
+            Console.ReadLine();
+        }
+        static void Run(object callback)
+        {
+            for(int i=0;i<=27;i++)
+            {
+                Console.WriteLine("Number : " + i);
+                Thread.Sleep(240);
+            }
+        }
+
+        static void Run1(object callback)
+        {
+            for (int i = 0; i <= 27; i++)
+            {
+                Console.WriteLine("Second Number : " + i);
+                Thread.Sleep(240);
+            }
+        }
+
+        static void RunWithThreadPool()
+        {
+                ThreadPool.QueueUserWorkItem(new WaitCallback(Run));
+                ThreadPool.QueueUserWorkItem(new WaitCallback(Run1));
+        }
+
+        static void RunWithoutThreadPool()
+        {
+                Thread objThread = new Thread(Run);
+                objThread.Start();
+                objThread = new Thread(Run1);
+                objThread.Start();
+        }    

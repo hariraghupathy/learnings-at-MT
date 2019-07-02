@@ -1,0 +1,13 @@
+Unsafe:
+  ->c# allows pointer variables to be used in a function of a code block when it is marked by the unsafe modifier
+  ->The unsafe code or the unmanaged code is a code block that uses a pointer variable.
+  ->If we are using unsafe code, we have to enable Allow unsafe code in our Visual Studio
+  ->Example:
+       unsafe {
+            int var = 20;
+            int* p = &var;
+            
+            Console.WriteLine("Data is: {0} " , var);
+            Console.WriteLine("Data is: {0} " , p->ToString());
+            Console.WriteLine("Address is: {0} " , (int)p);
+         }

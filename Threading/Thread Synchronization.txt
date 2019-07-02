@@ -1,0 +1,192 @@
+Thread Synchronization:
+   ->Suppose there are many threads and one thread is a critical thread and requires more memory to execute
+   ->so its primary requirement is to make all the other threads wait until this thread completes its task in order to provide memory
+   ->So for this thread synchronization is used
+   
+Race Condition:
+   ->If two or more threads access the same memory without synchronization,data race happens and this is called a race condition
+   ->Example:
+       ->Suppose we have two threads,one is for opening a file and one is for writing a file
+       ->First thread->to open the file
+       ->second thread->to write the file
+       ->care should be taken that the second thread waits until the first thread completes execution
+
+Thread Synchronization:
+   ->Thread Synchronization deals with the following conditions
+     1.Deadlock
+     2.Starvation
+     3.Priority Inversion
+     4.Busy Waiting
+     
+     ->Deadlock->Suppose we are using a lock over a shared object 
+               ->it may be a circular wait condition
+               ->this means that there is a cycle of threads, each thread is waiting for the next thread to release the resource
+               ->this results in a deadlock
+               ->thread 1 acquires lock a
+               ->thread 2 acquires lock b
+               ->so when again thread1 attemps to acquire lockb ;it is already acquired by locka 
+               ->and again when thread 2 attemps to acquuire locka; it is already acquired by lockb
+               ->so this results in a deadlock
+               ->Example:
+                     object lockA=new object();
+                     object lockB=new object();
+                     void t1()
+                     {
+                        lock(lockA)
+                        {
+                           lock(lockB)
+                           {
+
+                           }
+                        }
+                     }
+                     void t2()
+                     {
+                        lock(lockB)
+                        {
+                           lock(lockA)
+                           {
+
+                           }
+                        }
+                     }
+                 
+     ->Starvation:->When a thread is perpetually denied access to its resources,by a shared object which is locked
+                  ->as a it will be unable to make progress
+                  ->This happens usually when greedy threads consume resources over a long period of time
+     ->Priority Inversion:
+                  ->It is a problem, not a solution
+                  ->It is the scenario in which a low priority task acquires a resource which a high priority task needs access
+     ->Busy Waiting:
+                  ->When two or more processes want to enter the same critical section, something has to be done to prevent more than one process from entering it.
+                  ->Example: When a shared printer device is available and when multiple systems connected to the lan give a print at the same time,this scenario will lead to busy waiting
+
+Classis Synchronization problems:
+     ->Producer-Consumer problem
+     ->Readers-Writers problem
+     ->Dining Philosophers problem
+
+     ->Producer Consumer Problem:
+          ->It is a multi-process synchronization problem
+          ->The problem describes two processes,the producer and the consumer
+          ->the two processes share a fixed size buffer used as a queue
+          ->The producer's job is to generate data,put it into the buffer and start again
+          ->The consumer's job is to consume the data;i.e to remove the data from the buffer;one piece at a time
+          ->The problem is to make sure that the producer won't try to add data to the queue if it is full 
+          ->and the consumer won't try to remove data from the queue if the queue is empty
+      
+          ->Solution for the producer:
+                ->the solution for the producer is to either go sleep or discard data if the buffer is full
+                ->the next time the consumer removes an item from the queue, it notifies the producer to fill the queue
+
+          ->Solution to the consumer:
+                ->in the same way the consumer can go to sleep if the queue is empty
+                ->the next time the consumer removes an item from the queue , it notifies the producer, who starts to fill the buffer again
+
+          ->Semaphores:
+                ->This solution can be obtained by inter-process communication
+                ->By the use of semaphores
+                ->When to use the semaphores:
+                    ->Inadequate situation:
+                         ->An inadequate situtaion may occur where both the producer and the consumer needs to be awakened
+                ->Semaphore definition:
+                    ->Semaphore is a variable or abstract data type used to control access to a commonly shared resource by multiple processes  in a multitasking system
+                    ->Example: (Producer-consumer problem)
+                             ->consider two variables ->1.fillCount ->2.emptyCount
+                             ->fillCount -> it is the number of resources filled in the queue
+                             ->emptyCount -> it is the number of empty resources in the queue
+                             ->what we do is increment the fillCount and decrement the emptyCount when a new resource is inserted into the queue
+                             ->when the producer tries to push a resource to the queue when the emptyCount is less than 0; the producer is made to sleep 
+                             ->the next time a consumer picks a resource the empty count is increased and this awakens the producer
+                    ->the order in which the semaphores are incremented or decremented is very important;changing the order might itself result in a deadlock
+
+
+
+->Mutex:
+       ->Mutex is a class that can be used to prevent simultaneous execution of a block of code by multiple threads that are running on single or multiple processes
+       ->it does not allow the block of code to execute twice when it is already running
+       ->Example: IPSDefinition should not be opened again when it is already open
+       ->So suppose a thread is executed 10 times and the thread executes a method
+       ->Inside the starting of that method;give Mutex.WaitOne()
+       ->In the ending of that method;we will give Mutex.ReleaseMutex();
+       ->This is how it is implemented
+
+->Monitor:
+      ->Provides a mechanism that synchronizes access to the objects
+      ->the lock and the basic behaviour of the Moniter(Enter+Exit) are the same
+      ->Monitor Provides more synchronization capabilities 
+      ->lock is for basic usage, but Monitor is the better one
+      ->only additional thing in Monitor is we use the try,catch and finally block explicitly in order to remove the locks
+      ->Consider a method: static object locker = new object();
+                           try
+                           {
+                              Monitor.Enter(locker);
+                              WriteToFile();     
+                           }
+                           catch(Exception ex){}
+                           Finally
+                           {
+                              Monitor.Exit(locker);
+                           }
+
+
+->Interlocked:
+      ->Atomic operation: does not get disturbed in a multi-threaded environment.Thread-safe
+      ->When it is used?
+             ->When two threads try to update the same variable , then this class can be used
+      ->Methods in the interlocked class:
+             ->Increment
+             ->Decrement
+             ->Exchanged
+             ->CompareExchange
+             ->Add
+             ->Read
+             ->Example:
+                    int a=1;
+                    a = Interlocked.Increment;
+                    a = Interlocked.Decrement;
+             ->In the above example,the computer won't interrupt in incrementing or decrementing the value of 'a'
+             ->Interlocked.Exchange example:
+                  int a = 2;
+                  int b = 4;
+                  Interlocked.Exchange(a, b); // now a equals to 4 and b still 4
+                  Interlocked.Exchange(a,8);  // now value of a is become 8
+
+->Volatile :
+      ->The purpose of the volatile keyword is to tell the compiler that the variable you are marking as volatile may be accessed by multiple threads. 
+      ->There are certain optimizations that the csharp compiler makes when it compiles our code and unless the variable is marked as volatile, 
+      ->the compiler will make optimizations assuming that the variable will only be accessed by one thread at a time.
+      ->It can be applied only to the following:
+           ->reference types
+           ->Pointer types (in an unsafe context)
+           ->Types such as sbyte, byte, short, ushort, int, uint, char, float, and bool
+           ->IntPtr and UIntPtr
+ 
+
+->Difference between volatile and interlocked.Eexhchanged:
+      ->interlocked.Exchanged uses a processor instrcution that guarentees an atomic operation
+      ->volatile.Write() does the same but includes a memory barrier operation
+      ->What is a memory barrier operation:
+           ->It causes a CPU or compiler to enforce an ordering constraint on the memory operations issued before and after the barrier instruction
+           ->This ensures that operation to be executed prior to the barrier does not get executed before the operations that are issued after the barrier 
+
+->AutoResetEvent and ManualResetEvent:
+      ->They both are used in threading and they help us manage synchronization using signals
+      ->Example:
+          ->Suppose there are two threads -> Thread1 and Thread2 and one main thread created from the Main() method
+          ->Thread 1 and Thread 2 is doing some task and the main thread is also doing a task(perhaps printing numbers)
+          ->Now we want to implement synchronization between these threads
+                   ->static AutoResetEvent autoReset = new AutoResetEvent(false);   
+                   ->static ManualResetEvent manualReset = new ManualResetEvent(false);
+                   ->Example: ->AutoReset is like a toll both where after each car moves it automatically closes
+                              ->Manual Rest is like a gate in our house, we have to close the gate after parking the car     
+                   ->Learn by implementing in code
+
+
+
+             
+
+
+
+
+

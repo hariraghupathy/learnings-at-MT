@@ -1,0 +1,85 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+namespace ConsoleApplication1
+{
+    class A
+    {
+        public void method()
+        {
+            Console.WriteLine("Base method");
+        }
+    }
+    class B : A
+    {
+        public void method()
+        {
+            Console.WriteLine("DerivedMethod");
+        }
+    }
+    class Program
+    {
+        public delegate void Operation(string param);
+        public delegate int Sum(int a, int b);
+        public delegate bool IsUpper(string str);
+        public static void Main(string[] args)
+        {
+            // using anonymous functions
+            Operation printLine = delegate (string param)
+            {
+                Console.WriteLine(param);
+            };
+
+            printLine("Directly Invoking delegate");
+            Dosomething_Callback(printLine);
+            Dosomething_Callback((string s) => printLine(s));
+
+            Dosomething_Action(new Action<string>(printLine));
+            Dosomething_Action((string s) => printLine(s));
+            Sum summer = delegate (int a, int b)
+            {
+                return (a + b);
+            };
+            Dosomething_Func(new Func<int, int, int>(summer));
+            Dosomething_Func((int a, int b) => summer(a, b));
+
+            IsUpper isupperdel = delegate (string str)
+            {
+                return str.Equals(str.ToUpper());
+            };
+            Dosomething_Predicate(new Predicate<string>(isupperdel));
+            Dosomething_Predicate((string s) => isupperdel(s));
+            Console.ReadLine();
+            //A obj = new B();
+            //obj.method();
+            Console.ReadKey();
+        }
+
+        static void Dosomething_Callback(Operation del)
+        {
+            //
+            del("Invoking delegate as a callback");
+            //
+        }
+        static void Dosomething_Action(Action<string> del)
+        {
+            //
+            del("Invoking delegate as Action");
+            //
+        }
+        static void Dosomething_Func(Func<int, int, int> del)
+        {
+            //
+            Console.WriteLine("Invoking delegate as Func " + del(1, 2));
+            //
+        }
+        static void Dosomething_Predicate(Predicate<string> del)
+        {
+            //
+            Console.WriteLine("Invoking delegate as Predicate " + del("HELLOWORLD"));
+            //
+        }
+    }
+}

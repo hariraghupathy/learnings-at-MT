@@ -1,0 +1,36 @@
+Creating custom Attributes:
+ ->We have to inherit the attribute class
+ ->Example:
+    class Help :Attribute
+    {
+        public string HelpText { get; set; }
+    }
+
+    [Help(HelpText ="This is a class")]
+    class Customer
+    {
+        private string _CustomerCode;
+        [Help(HelpText = "This is a property")]
+        public string CustomerCode
+        {
+            get { return _CustomerCode; }
+            set { _CustomerCode = value; }
+        }
+        [Help(HelpText = "This is a method")]
+        public void Add()
+        {
+        }
+
+    }
+
+
+  ->These attributes can be understood by using Reflection API at the runtime
+  
+->Is it possible to restrict a custom attribute to a method only?
+   ->Yes , by using [AttributeUsage(AttributeTargets.Method)]
+   ->Example:
+      ->[AttributeUsage(AttributeTargets.Method)]
+        class HelpAttribute : Attribute
+        {
+           public string HelpText { get; set; }
+        }

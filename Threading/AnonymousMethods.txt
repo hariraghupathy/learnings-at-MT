@@ -1,0 +1,22 @@
+Anonymous methods:
+  ->They are the methods without name but just body
+  ->It has no return type
+  ->The return type of the anonymous method is inferred by the compiler based on the body of the method
+  ->Example :
+    class Program  
+    {  
+        // Delegate Definition  
+        delegate void operation();  
+  
+        static void Main(string[] args)  
+        {  
+            // Delegate instantiation  
+            operation obj = delegate  
+            {  
+                Console.WriteLine("Anonymous method");  
+            };  
+            obj();  
+   
+            Console.ReadLine();  
+        }  
+    }  

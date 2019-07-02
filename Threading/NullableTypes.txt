@@ -1,0 +1,78 @@
+Nullable Types:
+  ->A value type cannot be assigned a null value 
+  ->value type ->int for example
+  ->Nullable types allows us to assign null values to these types
+  ->Nullable<T> where T stands for the type
+
+  ->Example:
+        ->Nullable<int> i=null;
+
+  ->a nullable type can represent the correct range of values for its underlying value type,plus an additional null value
+  ->For example, Nullable<int> can be assigned any value from -2147483648 to 2147483647, or a null value
+
+Nullable Struct:
+  ->Nullable types are instances of the Syste.Nullable<T> struct
+  
+  ->[Serializable]
+    public struct Nullable<T> where T : struct
+    {        
+      public bool HasValue { get; }
+      
+      public T Value { get; }
+        
+     // other implementation
+    }
+    
+   ->a nullable of type int is the same as an ordinary int plus a flag that says whether the int has a value or not
+   ->All the rest is compiler magic that treats "null" as a valid value
+
+HasValue:
+
+   ->static void Main(string[] args)
+    {
+      Nullable<int> i = null;
+
+      if (i.HasValue)
+          Console.WriteLine(i.Value); // or Console.WriteLine(i)
+      else
+          Console.WriteLine("Null");
+    }
+
+GetValueOrDefault:
+  
+   ->static void Main(string[] args)
+     {
+         Nullable<int> i=null;
+         Console.WriteLine(i.Value);   //this will throw an exception
+     }
+   ->the above code will throw an exception and so we use GetValueOrDefault()
+   ->static void Main(string[] args)
+     {
+        Nullable<int> i = null;
+
+       Console.WriteLine(i.GetValueOrDefault()); 
+     }
+
+
+ShortHand Syntax for Nullable Types:
+   
+   ->int? i=null;
+     double> D=null;
+
+
+?? operator:
+   ->This operator is used to assign a nullable type to a non-nullable type
+   ->Example:
+          -> int? i=null;
+             int j = i ?? 0;
+             Console.WriteLine(j.ToString());
+
+             op:0 
+
+   ->It works like if i is null , it will assign 0 as the value to j
+
+
+Comparison of Nullable type and non-nullable types:
+   ->Null is considered to be less than any value,so comparison operators won't work against null
+       
+

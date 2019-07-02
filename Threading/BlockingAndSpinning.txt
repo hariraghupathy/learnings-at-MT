@@ -1,0 +1,32 @@
+Thread Blocking :
+         ->a thread is blocked when its execution is paused
+         ->when we call sleep,join,endinvoke the thread is blocked
+         ->when a thread is blocked, it yields the processor to another thread
+         ->when a thread is blocked trying to acquire a mutex, it resumes excution after that mutex is released
+
+Thread Spinning :
+         ->In a multi-threaded system,if the resource which we try to acquire is already locked,we typically go to sleep and wait for it to become free
+         ->so we give our time to the processor and the scheduler will allocate it to some other thread or process
+         ->so if we feel like the blocking thread will take only a fraction of time out of our estimated time,
+           we can wait that is not a problem 
+         ->If the blocking thread is going to take more time,we can cheat but only at the right time
+         ->What we do is spin the thread
+         ->When we do this ?
+               ->if we find a resource that is very often locked and unlocked very quickly,then a spinlock around it instead of a wait is a good idea
+               ->the spinlock should be of very short time and callback should be fast
+               ->Generally , we don't require this
+
+Thread.SpinWait() :
+         ->It is useful for implementing locks
+         ->Classes such as Monitor and ReadWriteLock internally implements these methods
+         ->Spinwait especially puts the processor into a very tight loop
+         ->Duration of the wait will depend upon the speed of the processor
+         
+->Blocking vs Spinning :
+         ->Blocking is making the thread stop its work and assign its work to a different thread
+         ->It yields its time slice
+
+         ->Spinning is making the thread spin in an empty loop for some time and keep using CPU instead of yielding its time as it does in blocking
+         ->We can use SpinWait only if we know that the resource which we are waiting for will be available in a very short interval of time
+
+

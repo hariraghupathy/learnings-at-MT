@@ -1,0 +1,21 @@
+Finalizers:
+  ->They are called by either overriding the Finalize method or by the destructor itself
+  ->It is used to perform cleanup opearations on unmanaged resources held by the current object before the object is destroyed
+
+->How it works:
+   ->if a type does override the Finalize method,
+     the garbage collector adds an entry for each instance of the type to an internal structure called the finalization queue
+   ->The finalization queue contains entries for all the objects in the managed heap whose finalization code must run before 
+     the garbage collector can reclaim their memory
+
+->Overriding the Finalize method:
+   ->Simply create a class and give the following:
+             public class MyClass
+             {
+               protected override void Finalize()
+               {
+                   //freeing up of unmanaged resources takes place here
+               }
+             }
+  ->But c# compiler does not allow us to override the finalize method,
+    instead it tells us to use a destructor which automatically calls the finalize method

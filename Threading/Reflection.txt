@@ -1,0 +1,53 @@
+Reflection:
+  ->Reflection provides objects that describe assemblies,modules and types
+  ->We can use reflection to :
+      1.Create an instance of a type
+      2.bind the type to an existing object
+      3.get the type from an existing object
+  ->if we are using attributes in our code, reflection enables you to access them
+  ->Example:
+       ->to get the type of a variable -> GetType()
+       int i=42;
+       System.Type type=i.GetType();
+       System.Console.WriteLine(type);
+
+       op:System.Int32
+
+       ->to get information from an assembly(dll)
+
+       System.Reflection.Assembly info=typeof(System.Int32).Assembly;
+       System.Console.WriteLine(info);
+  
+       op:mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+
+         
+             
+Attributes:
+   ->Attribute is a declarative tag that is used to convey information to 
+     runtime about the behaviours of various elements like modules,assemblies etc. in our program
+   ->We can add declarative information to a program by using attributes
+   ->[System.ObsoleteAttribute()] -> Attribute
+     void Fun{}
+   ->The Fun method is marked with the system.ObsoleteAttribute attribute information
+   ->It(assembly information) is inserted into the assembly during compilation
+   ->This information then can be used by the c# compiler
+   ->When it encounters a call to the method,it can emit a warning that a call to an obsolete method should be avoided
+
+Why attributes are necessary?
+   ->attributes are essential because there is no guarantee that our clients will read the documentation carefully and
+     avoid the call to the obsolete method
+ 
+Example:
+   -> [Obsolete("Don't use old method,use New method",true)]   ->Obselete->should not be used
+        static void Old() { }
+        static void New() { }
+
+        static void Main(string[] args)
+        {
+            Old();
+        }
+
+    ->In the above example,the compiler won't allow us to call the old method
+ 
+
+   

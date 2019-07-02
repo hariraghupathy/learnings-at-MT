@@ -1,0 +1,58 @@
+Timers
+    ->The timer control allows us to specify a particular interval of time at which an event has to occur
+    ->It is useful when we want execute certain applications after a particular interval
+    ->Example:
+       ->Suppose we want to make an hourly backup of our data
+       ->We can program a routine with Timer such that it backsup the data every hour
+       ->we set the timer's interval for an hour
+    ->Implementation:
+       ->Create a windows form with two buttons start and stop
+       ->In this application,we are going to create a file on the start event such that every 5 seconds we are going to write the time to the text file
+       ->Also create a timer and give the interval property to 5000 (5 seconds)
+       ->On the tick event of the timer , write the functionality i.e what should happen
+       ->The start button will set the timer's enabled property to true
+       ->The stop button will set the timer's enabled property to false
+       
+->Code:
+
+
+namespace Timers
+{
+    public partial class Form1 : Form
+    {
+        private static FileStream objFileStream=new FileStream(@"C:\Users\vr-1\Desktop\Hari Krishnan\Temp Files\timer.txt",FileMode.OpenOrCreate,FileAccess.Write);
+        private static StreamWriter objStreamWriter = new StreamWriter(objFileStream);
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            objStreamWriter.WriteLine("{0} {1}",
+   DateTime.Now.ToLongTimeString(), DateTime.Now.ToLongDateString());
+            objStreamWriter.Flush();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            // Write to the file using StreamWriter class  
+            objStreamWriter.BaseStream.Seek(0, SeekOrigin.End);
+            objStreamWriter.Write(" File Write Operation Starts : ");
+            objStreamWriter.WriteLine("{0} {1}",
+            DateTime.Now.ToLongTimeString(), DateTime.Now.ToLongDateString());
+            objStreamWriter.WriteLine("===================================== \n");
+            objStreamWriter.Flush();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            timer1.Enabled = true;
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            timer1.Enabled = false;
+        }
+    }
+}

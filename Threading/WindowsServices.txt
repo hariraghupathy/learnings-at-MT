@@ -1,0 +1,43 @@
+Windows Services:
+  ->Enables you to make long-running applications(DRS,DES,DSS)
+  ->Can be automatically started without any interaction,can be paused and restarted without any user interaction
+  ->easily installed by using the command line utility InstallUtil.exe
+
+Implementation:
+  ->Create a windows service
+  ->In the service1.cs,we will find two methods OnStart and OnStop
+  ->OnStart triggers when the windows service starts
+  ->OnStop triggers when the windows service stops
+
+->Adding Installer to the Windows Service:
+  ->Right click on the installer and click on AddDesigner
+  ->Two controls will be created:
+    1.Service Intaller
+    2.Service Process Installer
+  ->Go To service installer properties and give the start type as Manual
+  ->Go to service process installer properties and give the Account -> Local System
+  ->Now Build the project and we can find the exe file in the build path
+
+->How to install the service:
+  ->Go to Developer cmd for visual studio in that exe location in administrator mode and give the following -> InstallUtil.Exe "TestWindowsService.Exe"
+
+->Uninstalling the windows service:
+  ->we can uninstall the service by right-clicking manually from the service manager
+
+->Creating a windows service from code:
+  ->Inherit the System.ServiceProcess.ServiceBase class by creating a class UserService1 or with any name
+  ->Then in the constructor assign the name for the service 
+    ->Example: public UserService1() 
+               {
+                  this.ServiceName = "MyService2";
+                  this.CanStop = true;
+                  this.CanPauseAndContinue = true;
+                  this.AutoLog = true;
+               }
+  ->Create a main method and give the following:
+       public static void Main()
+       {
+         System.ServiceProcess.ServiceBase.Run(new UserService1());
+       } 
+  ->Then override the OnStart and OnStop methods also
+

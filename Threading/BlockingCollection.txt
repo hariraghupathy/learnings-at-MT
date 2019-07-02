@@ -1,0 +1,86 @@
+Blocking Collection:
+  ->Blocking collection is a thread-safe collection class where multiple threads can add and remove data from the queue concurrently
+  ->An implementation of the Producer-Consumer problem
+  ->Insertion and removal operations that block when the collection is empty or full
+  ->Optional maximum capacity
+  ->Insertion and removal "try" operations that do not block up or that block up to a specified period of time
+  ->Encapsulates any collection type that implements IProducerConsumerCollection<T>
+  ->Cancellation with cancellation tokens
+  ->BlockingCollection<T> ->max capacity and type of collection can be specified
+        ->It supports bounding and blocking
+        ->Bounding means we can set the maximum capacity of the collection
+        ->Bounding is important in certain scenarios because it enables you to control the max size of the collection in memory
+        ->remember what the producer-consumer problem exactly is
+        
+        ->CompleteAdding():         
+              ->The producer thread can call the COMPLETEADDING (CompleteAdding) to indicate that no more items will be added
+        ->IsCompleted property:
+              ->Consumers moniter the IsCompleted property to know whether the collection is empty and no more items will be added
+   ->Implementation:
+       
+        ->Creating a blocking collection of type string
+               var blockingCollection=new BlockingCollection<string>();
+            
+        ->BlockingCollection<int> data=new BlockingCollection<int>(boundedCapacity:3);
+ 
+        ->We can add data to the blocking collection by using Try or the TryAdd method
+               ->data.Add(1);
+                 data.Add(2);
+                 data.Add(3);
+                 data.Add(4); =>This would be blocked until an item is removed from the collection
+
+        ->TryAdd():(timeout value)
+               ->We can also use TryAdd method to add an item to the collection 
+               ->In this method we specify a timeout value 
+               ->If the add operation fails within that timeout value;then the TryAdd return false
+               ->data.Add(1);
+                 data.Add(2);
+                 data.Add(3);
+                 if (data.TryAdd(4, TimeSpan.FromMilliseconds(100)))
+                 { Console.WriteLine("new item added successfully"); }
+                 else
+                 { Console.WriteLine("failed"); }
+
+        ->To remove an item from the blocking collection,we can use the Take or TryTake methods
+         
+        ->The take method blocks if there are no items in the collection
+ 
+        ->TryTake is similar to the TryAdd where we can specify a timeout value
+
+        ->  int item;
+            while (data.TryTake(out item, TimeSpan.FromMilliseconds(100)))
+            {
+               Console.WriteLine(item);
+            }
+
+Example:
+      -> class Program
+   {
+       private static BlockingCollection<int> data = new BlockingCollection<int>();
+       private static void Producer()
+       {
+           for (int ctr = 0; ctr < 10; ctr++)
+           {
+               data.Add(ctr);
+               Thread.Sleep(100);
+           }
+       }
+       private static void Consumer()
+       {
+           foreach (var item in data.GetConsumingEnumerable())
+           {
+               Console.WriteLine(item);
+           }
+       }
+       static void Main(string[] args)
+       {
+           var producer = Task.Factory.StartNew(() => Producer());
+           var consumer = Task.Factory.StartNew(() => Consumer());
+           Console.Read();
+       }
+   }
+
+
+->GetConsumingEnumerable method removes and returns items from a collection after checking the IsCompleted property
+->Task.Factory.StartNew ->this is used in parallel programming,learn about it
+

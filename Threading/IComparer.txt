@@ -1,0 +1,54 @@
+IComparer:
+->The CompareTo method of the IComparable interface can sort on only one field at a time
+->So sorting on different properties with it is not possible
+->So this IComparer interface implements the Compare method that compares two objects
+
+Example:
+
+public class CarComparer: IComparer < Car >  
+{  
+    public enum SortBy  
+    {  
+        Name,  
+        MaxSpeed  
+    }  
+    private SortBy compareField = SortBy.Name;  
+    public int Compare(Car x, Car y)  
+    {  
+        switch (compareField)  
+        {  
+            case SortBy.Name:  
+                return x.Name.CompareTo(y.Name);  
+                break;  
+            case SortBy.MaxSpeed:  
+                return x.MaxSpeed.CompareTo(y.MaxSpeed);  
+                break;  
+            default:  
+                break;  
+        }  
+        return x.Name.CompareTo(y.Name);  
+    }  
+}  
+
+
+Client:
+private static void Main(string[] args)  
+{  
+    Car[] cars = new Car[]  
+    {  
+        new Car()  
+        {  
+            Name = "Zinco"  
+        }, new Car()  
+        {  
+            Name = "VW"  
+        }, new Car()  
+        {  
+            Name = "BMW"  
+        }  
+    };  
+    var carComparer = new CarComparer();  
+    carComparer.compareField = CarComparer.SortBy.MaxSpeed;  
+    Array.Sort(cars, carComparer);  
+}  
+

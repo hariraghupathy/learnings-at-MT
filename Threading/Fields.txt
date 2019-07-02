@@ -1,0 +1,6 @@
+Fields:
+->A field is a variable of any type that can be directly declared in a class or struct
+->Normal member variables either static or instance variables
+
+Properties:
+->Properties are abstraction to get and set their values

@@ -1,0 +1,30 @@
+PLinq:
+  ->Parallel Linq is similar to the TPL whereit helps us to query the collections concurrently based on the capabilities of the host computer
+  ->AsParallel() method is used to acheive parallel programming
+  ->var queryA = from num in numberList.AsParallel()
+                 select ExpensiveFunction(num) //good for PLINQ
+  ->var queryB = from num in numberList.AsParallel()
+                 where num%2==0
+                 select num //not good for PLINQ
+
+  ->AsOrdered():
+     ->PLinq provides the AsOrdered operator for situations in which it is necessary to maintain the order of elements in the source sequence
+     ->PLINQ performs best when it is allowed to process elements in the source collection in any order, 
+       and pass them to the next operator as soon as they are ready.So PLINQ should not applied for functionalities which depend on a sequence or order
+
+  ->Merge Options in PLINQ:
+     ->When a query is executing as parallel.PLinq partitions the source sequence such that multiple threads can work
+       on different parts concurrently
+     ->If all those separate results are to be consumed on one thread,
+       then the results from every thread must be merged back into one sequence
+     ->Example:
+             from n in nums.AsParallel().WithMergeOptions(ParallelMergeOptions.NotBuffered)
+             where n%2==0
+             select ExpensiveFunction(n);
+
+  ->ParallelMergeOptions:
+            ->NotBuffered: It makes each result return from the parallel threads as soon as it is produced
+            ->AutoBuffered: It causes the query to collect elements to a buffer and after everything is processed,it returns the values all at once to the consuming thread
+                           ->AutoBuffered may take a longer time than the NotBuffered to make the first element available on the consuming thread    
+                           ->periodically yields group by group
+            ->FullyBuffered: It yields all the values at once (It is efficient than the above two methods)

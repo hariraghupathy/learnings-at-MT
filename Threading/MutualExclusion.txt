@@ -1,0 +1,4 @@
+Mutual Exclusion:
+  ->It is a program object that prevents simultaneous access to a shared resource.
+  ->This concept is used in concurrent programming with a critical section,a piece of code 
+    in which processes or threads access a shared resource

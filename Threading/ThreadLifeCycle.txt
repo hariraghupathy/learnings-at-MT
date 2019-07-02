@@ -1,0 +1,49 @@
+Thread LifeCycle:
+      ->In c#, each thread has a lifecycle
+      ->The lifecycle of a thread is started when the instance of SYstem.Threading.Thread class is created
+      ->When the task execution of the thread is over,its life cycle is completed
+      ->There are following states in the life cycle of a thread:
+             ->Unstarted
+             ->Runnable(Ready to run)
+             ->Running
+             ->Not runnable
+             ->Dead(Terminated)
+              
+             ->Unstarted:
+                  ->When the instance of the thread is created, it is in the unstarted state by default
+
+             ->Runnable:
+                  ->When the start() method of the thread instance is called, it means that the thread is in a ready state to run
+ 
+             ->Running:
+                  ->If the thread is running inside a process, the thread is said to be in a running state
+
+             ->Not Runnable State:
+                  ->The thread is in a not runnable state,if sleep() or wait() method is called by the thread instance
+
+             ->Dead State:
+                  ->After completing the task, the thread enters into a dead or terminated state
+
+Multithreading:
+      ->It is a process in which multiple threads execute simultaneously
+      ->It is a process to achieve multitasking.
+      ->It saves time because multiple tasks can be executed at a time
+      ->To achieve multithreading, we need to use the System.Threading namespace
+
+System.Threading Namespace:
+      ->System.Threading namespace contains classes and interfaces to provide the facility of multithreaded programming
+      ->list of commonly used classes are:
+                1.Thread
+                2.Mutex
+                3.Timer
+                4.Monitor
+                5.Semaphore
+                6.ThreadLocal
+                7.ThreadPool
+                8.Volatile etc
+
+Process and thread:
+       ->Process represents an application whereas thread represents a module of an application
+       ->Process is heavyweight component whereas a thread is a lightweight subprocess because it is executed inside a process
+       ->Process -> separate memory area is allocated for each process
+       ->Thread -> whereas a thread shares a common area of memory

@@ -1,0 +1,58 @@
+Extension Methods:  (Extension methods can only be defined in a static class -> very important)
+  ->Implementation with an example:
+        ->Create a class library with the following two methods
+        ->namespace ClassLibrary1
+          {
+              public class Class1
+              {
+                 public string Display()
+                 {
+                    return "i'm in Display method";
+                 }
+
+                 public string Print()
+                 {
+                    return "i'm in Print method";
+                 }
+              }
+          }
+
+        ->Now create a console application in the same solution and add the above class library's dll reference
+        ->we will already have a main class named Program in the Console Application
+        ->What we have to do is that create a new class which is static 
+        ->the new class created which contains the extension method should be static . 
+
+        Code:
+ 
+             namespace ExtensionMethods
+             {
+ 
+                public static class XX
+                {
+                    public static void NewMethod(this ClassLibrary1.Class1 ob)   -> the parameter specified inside the extension method is the most important
+                    {
+                      Console.WriteLine("Hello I'm extended method"); 
+                    }
+                }
+                class Program
+                {
+                   static void Main(string[] args)
+                   {
+                     ClassLibrary1.Class1 obj = new ClassLibrary1.Class1();
+                     obj.Display();
+                     obj.Print();
+                     obj.NewMethod();
+                     Console.ReadLine();
+                   }
+   
+                }
+             }     
+
+
+Basically why we need extension methods?
+        ->Extension methods allow existing classes to be extended without relying on inheritance
+          or having to change the class's source code
+        ->Important point to note that if the class is sealed,then there is no point of extending it
+        ->So here comes the use of extension methods
+        ->overuse of extension methods is not a good style of programming        
+ 

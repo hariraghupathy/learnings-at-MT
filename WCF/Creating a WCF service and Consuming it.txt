@@ -1,0 +1,24 @@
+Creating a WCF Service and Consuming it: (link:https://www.mindstick.com/Articles/1371/calculator-sample-in-wcf)
+
+->Create the WCF service application
+->Declare the Service Contract and Operation Contract in IService1.cs
+->Implement the interface and define the methods definition in the .svc file
+->Exposing endpoints to metadata:
+      ->Go to web.config file
+      ->write this configuration inside the <system.servicemodel> tag
+      ->   <services>
+               <service name="CalculatorService.Service1">
+                  <endpoint address="" binding="basicHttpBinding" contract="CalculatorService.ICalculator"></endpoint>
+                  <endpoint address="mex" contract="IMetadataExchange" binding="mexHttpBinding"></endpoint> 
+               </service>  
+           </services>
+->Now build and run the service as we do for other applications
+->Now we will get a wcf service's wsdl->http://localhost:57589/Service1.svc?wsdl
+
+->Create the client application:
+  ->Create client proxy
+  ->after adding service reference
+  ->access the API's
+
+->Hosting WCF through windows services: (ServiceHost)
+  ->https://www.c-sharpcorner.com/UploadFile/ff2f08/host-wcf-in-a-windows-service-using-tcp/

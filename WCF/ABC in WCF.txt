@@ -1,0 +1,184 @@
+ABC in WCF:(https://www.c-sharpcorner.com/blogs/address-binding-and-contract-in-wcf1)
+
+->Address,Binding and Contract
+
+->Address:
+  ->In WCF every service is associated with a unique address
+  ->The address provides two important elements:
+     1.Location of the service (host ip)
+     2.Type of transport protocol
+
+->WCF supports the following transport schemas:
+   1.HTTP
+   2.TCP
+   3.Peer Network
+   4.IPC(Inter proces communication)
+   5.MSMQ
+
+Addresses have the following format:
+ ->[base address]/ [optional URI]
+
+->Sample Addresses are:
+ 
+  http://localhost:8001 
+  http://localhost:8001/firstservice
+  net.tcp://localhost:8002/firstservice
+  net.pipe://localhost/piped
+  net.msmq://localhost/firstservice
+
+->TCP addresses:
+  ->They use the net.tcp for the transport 
+  ->They typically use a port number 
+  ->If no port number is specified,the TCP defaults to port 808
+  ->Example: net.tcp://localhost:8002/firstservice
+
+->HTTP addresses:
+  ->They use http for transport and can also use https for secure transport
+  ->Example: http://localhost:8001
+             http://localhost:8001/firstservice
+  ->When port number is unspecified, it defaults to 80
+  ->Similar to TCP addresses,two HTTP addresses can share the same port even on the same machine
+
+->IPC addresses:
+  ->They use the net.pipe for transport, to indicate the use of the windows named pipe mechanism
+  ->In WCF,service that use named pipes can accept calls only from the same machine
+  ->Consequently,you must specify either the explicit local machine name or the localhost for the machine name,followed by a unique string for the pipe name
+  ->Example: net.pipe://localhost/piped
+  ->You can only open a named pipe once per machine, and therefore it is not possible for two named pipe addresses to share a pipe name on the same machine.
+
+
+ ->MSMQ addresses:
+   ->MSMQ addresses use net.msmq for transport,to indicate the use of MSMQ
+   ->We must specify the queue name
+   ->When we are dealing with private queues , we must specify the queue type,but that can be omitted for public queues
+   ->Example:
+          net.msmq://localhost/private/firstservice
+          net.msmq://localhost/firstservice
+
+->Peer Network Addresses:
+   ->They use net.p2p for transport,to indicate the use of Windows peer network transport
+   ->We must specify the peer network name as well as the unique path and port
+
+
+
+
+
+
+
+
+->Bindings:
+    ->It specifies how the service is accessible
+    ->In other words,how the two parties will communicate in terms of transport(HTTP,TCP,NamedPipe,PeerToPeer and MSMQ),encoding(text,binary etc) and 
+      protocols like (transactional support or reliable messaging)
+  
+    ->Basic Binding:
+       ->Offered by the BasicHttpBinding class
+       ->It is designed to expose a WCF service as a legacy ASMX web service
+       ->It helps old clients to work with new services
+
+    ->TCP Binding:
+       ->Offered by NetTcpBinding class
+       ->this uses TCP for cross-machine communication on the intranet
+       ->It provides a variety of features such as reliability,transactions,and security,and is optimized for wcf-to-wcf communication
+       ->As a result , it requires both the client and the service to use WCF
+
+    ->Peer Network Binding:
+       ->Offered by NetPeerTcpBinding class
+       ->this uses peer networking as a transport
+       ->The peer network-enabled client and services all subscribe to the same grid and broadcast messages to it
+
+    ->IPC binding:
+       ->Offered by NetNamedPipeBinding class
+       ->This uses named pipes as a transport for same-machine communication 
+       ->It is the most secure binding since it cannot accept calls outside the machine
+       ->It also supports a variety of features similar to the TCP binding
+
+    ->WebService Binding (WSBinding):
+       ->Offered by WSHttpBinding class
+       ->this uses HTTP or HTTPS for transport
+       ->it is designed to offer a variety of features such as reliability,transactions, and security over the internet
+
+    ->Federated WS binding:
+       ->Offered by the WSFederationHttpBinding class
+       ->Specialization of WS binding offering support for federated security
+
+    ->Duplex WS Binding:
+       ->Offered by WSDualHttpBinding class,this is similar to the WS binding except it also supports
+         bidirectional communication from the service to the client
+ 
+    ->NetMsmqBinding:
+       ->Offered by NetMsmqBinding class
+       ->uses MSMQ for transport
+       ->It is designed to offer support for disconnected queue calls
+
+    ->Msmq Integration Binding :
+       ->Offered by the MsmqIntegrationBinding class
+       ->this converts WCF messages to and from MSMQ messages
+       ->It is designed to interoperate with legacy MSMQ clients
+
+
+
+
+
+
+
+
+->Contracts:
+       ->In WCF, all services expose contracts
+       ->The contract is platform-neutral and standard way of describing what the service does
+       ->Four Types of contracts:
+          1.Service Contracts:
+                   ->Describes which operations the clients can perform on our service
+                   Example:         [ServiceContract]
+                                    interface IFirstContract
+                                    {
+                                        [OperationContract]
+                                        string MyAdd( );
+                                    }
+          
+          2.Data Contracts:
+                  ->It defines which data types are passed to and from the service
+                  ->WCF defines implicit contracts for built-in types such as int and string
+                  ->but you can easily define explicit opt-in data contracts for custom types
+                  Example:          [DataContract]
+                                    struct Contact
+                                    {
+                                        [DataMember]
+                                        public string FirstName;
+ 
+                                        [DataMember]
+                                        public string LastName;
+                                    }
+
+          3.Fault Contracts:
+                  ->It defines which errors are raised by the service
+                  ->It also defines how the service handles and propogates errors to its clients
+                  Example:             [ServiceContract]
+                                       interface IFirstContract
+                                       {
+                                          [OperationContract]
+                                          [FaultContract(typeof(InvalidOperationException))]
+                      
+                                          [FaultContract(typeof(string))]
+                                          double MyAdd(double number1,double number2);
+                                       }
+
+          4.Message Contracts:
+                  ->It allows the service to interact directly with messages
+                  ->They can be typed or untyped
+                  ->They are useful for interoperable cases and when there is an existing message format you have to comply with
+                  ->As a WCF developer , we have to use message contracts only rarely
+                  Example:             [MessageContract]
+                                       public class BankingTransaction
+                                       {
+                                          [MessageHeader] public Operation operation;
+                                          [MessageHeader] public DateTime transactionDate;
+                                          [MessageBodyMember] private Account sourceAccount;
+                                          [MessageBodyMember] private Account targetAccount;
+                                          [MessageBodyMember] public int amount;
+                                       }
+                  
+                    
+
+ 
+

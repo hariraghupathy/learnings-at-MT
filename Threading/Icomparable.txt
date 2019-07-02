@@ -1,0 +1,72 @@
+Icomparable interface: (Mainly with sort Order)
+  ->It can be used to compare two objects of the same type to specify the sort order
+  ->Suppose there is a class car with two variables Name and MaxSpeed
+  ->We implement the IComparable interface and we have to implement the method CompareTo(Object)
+  ->The return value from CompareTo(Int32) will be an Int32 .Possible values are Less than zero,zero,Greater than zero
+  -><0 -> current instance is less in sort order
+  ->>0 -> current instance is more in sort order
+  ->=0 -> current instance is in the same sort order to the comparable instance
+
+Example:
+->Consider an example of an employee where the salary is equal and if the salary is equal for two employees , we have to sort the employee 
+->We have to inherit the interface as IComparable<T> -> T can be class name
+
+
+class Employee : IComparable<Employee>
+{
+    public int Salary { get; set; }
+    public string Name { get; set; }
+
+    public int CompareTo(Employee other)
+    {
+        // Alphabetic sort if salary is equal. [A to Z]
+        if (this.Salary == other.Salary)
+        {
+            return this.Name.CompareTo(other.Name);
+        }
+        // Default to salary sort. [High to low]
+        return other.Salary.CompareTo(this.Salary);
+    }
+
+    public override string ToString()
+    {
+        // String representation.
+        return this.Salary.ToString() + "," + this.Name;
+    }
+}
+
+
+
+Client Code:
+
+class Program
+{
+    static void Main()
+    {
+        List<Employee> list = new List<Employee>();
+        list.Add(new Employee() { Name = "Steve", Salary = 10000 });
+        list.Add(new Employee() { Name = "Janet", Salary = 10000 });
+        list.Add(new Employee() { Name = "Andrew", Salary = 10000 });
+        list.Add(new Employee() { Name = "Bill", Salary = 500000 });
+        list.Add(new Employee() { Name = "Lucy", Salary = 8000 });
+
+        // Uses IComparable.CompareTo()
+        list.Sort();
+
+        // Uses Employee.ToString
+        foreach (var element in list)
+        {
+            Console.WriteLine(element);
+        }
+    }
+}
+
+
+Output:
+
+500000,Bill
+10000,Andrew
+10000,Janet
+10000,Steve
+8000,Lucy
+
